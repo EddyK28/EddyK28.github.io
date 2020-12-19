@@ -1,0 +1,362 @@
+/*================================================================*/
+/* Color Theme */
+
+:root {
+  --filler_dark:  #000000;
+  --filler_med1:  #414141;
+  --filler_med2:  lightgrey;
+  --filler_light: #ffffff;
+  --accent_dark:  #297618;
+  --accent_light: #48d02a;
+}
+
+/*================================================================*/
+/* Special Logo Format */
+.logo {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 64px;
+    margin: 0 1em;
+    vertical-align: middle;
+}
+
+.logo h2 {
+    display: inline-block;
+    vertical-align: middle;
+    color: inherit;
+}
+
+
+/*================================================================*/
+/* Basic Page Formatting */
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1;
+	word-wrap: break-word;
+    
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
+html, body {
+	height: 100%;
+}
+
+/*================================================================*/
+/* Basic Text Formatting */
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 8px 0;
+	margin: 0.5rem 0;
+	font-weight: bold;
+	color: var(--filler_dark);
+}
+h1 {
+	font-size: 24px;
+	font-size: 1.5rem;
+	line-height: 28px;
+	line-height: 1.75rem;
+}
+h2 {
+	font-size: 22px;
+	font-size: 1.375rem;
+	line-height: 26px;
+	line-height: 1.625rem;
+}
+h3 {
+	font-size: 20px;
+	font-size: 1.250rem;
+	line-height: 24px;
+	line-height: 1.5rem;
+}
+h4 {
+	font-size: 18px;
+	font-size: 1.125rem;
+	line-height: 22px;
+	line-height: 1.375rem;
+}
+h5 {
+	font-size: 16px;
+	font-size: 1rem;
+	line-height: 20px;
+	line-height: 1.250rem;
+}
+h6 {
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 18px;
+	line-height: 1.125rem;
+}
+
+hr {
+	background-color: #ccc;
+	border: 0;
+	height: 1px;
+	margin: 24px 0;
+    clear:both;
+}
+
+p {
+    margin-bottom: 16px;
+    margin-bottom: 1.0rem;
+    font-size: 90%;
+}
+
+
+
+/*================================================================*/
+/* Link and Focus Formatting */
+
+a {color:var(--accent_dark);}
+a:hover {color: var(--accent_light);}
+
+:focus {
+    outline: 0;
+    box-shadow: 0 0 0px 2px var(--accent_light);
+}
+
+
+
+/*================================================================*/
+/* Flex Formatting */
+
+div.type_flex {
+    display: -webkit-box;       /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;          /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;       /* TWEENER - IE 10 */
+    display: -webkit-flex;      /* NEW - Chrome */
+    display: flex; 
+}
+
+
+/*================================================================*/
+/* Primary Container Formatting */
+
+div#container_page {
+    flex-direction: column;
+    height: 100%;
+}
+
+div#container_page>header {
+    background-color:var(--filler_med1);
+    border-bottom: solid 0.5em;
+    border-color: var(--accent_dark);
+    
+    flex-shrink: 0;
+}
+
+div#container_head {
+    flex-direction: row;
+    flex-wrap: wrap;            /* TODO: needs older implementations */
+    justify-content: space-around;
+    
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5em 0;
+}
+
+div#container_content {
+    background-color: var(--filler_light);
+    color: var(--filler_med1);
+    
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+    padding: 1em;
+    
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-self: center;
+}
+
+div#container_copyright {
+	padding: 8px 0;
+	text-align: center;
+    background-color:var(--filler_med1); 
+    color:var(--filler_light);
+    
+	font: normal 11px verdana, arial,helvetica, sans-serif;
+	font-size: 0.688rem;
+    
+    flex-shrink: 0;
+}
+
+
+/*================================================================*/
+/* Fancy Button Formatting */
+
+.mbt {
+    font-weight: bold;
+    border: solid var(--filler_med2) 2px;
+    border-radius: 4px 4px 4px 4px;
+    
+    display: inline-block;
+    
+    color: var(--filler_med2);
+    text-decoration: none;
+    font-size: 100%;
+    padding: 6px 16px;
+    
+    cursor: pointer;
+
+}
+
+.mbt:hover, .mbt.here {
+    color: var(--filler_dark);
+    background-color: var(--accent_light);
+    border-color:var(--accent_dark);
+}
+
+
+.sbt {
+    background-color: #efefef;
+    border: solid black 1px;
+    border-radius: 4px 4px 4px 4px; 
+    
+    display: inline-block;
+    
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    
+    padding: 1px 6px;
+
+}
+
+.sbt:hover {
+    background-color: lightgrey;
+}
+
+
+.srd::after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #efefef;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 1px solid black;
+}
+
+.srd:hover::after {
+    background-color: lightgrey;
+}
+
+.srd:checked::after {
+    background-color: var(--accent_light);
+}
+.srd:checked:hover::after {
+    background-color: var(--accent_dark);
+}
+
+/*================================================================*/
+/* Navigation Menu Formatting */
+
+ul.menu_nav {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+ul.menu_nav li {
+    display: inline-block;
+    margin: 0.5em;
+}
+
+/*================================================================*/
+/* Not exactly sure what's up here ~~~~ */
+
+
+div.content {
+    margin: 0 1em;
+}
+
+
+.str {
+	display:block;
+	margin-top: 1.2em;
+}
+
+.light {
+    background-color: var(--filler_med2);
+    color: var(--filler_dark);
+    border-color: var(--filler_med1);
+}
+
+
+/*================================================================*/
+/* Image tiles */
+
+.image-tile {
+    position: relative;
+    width: 256px;
+    margin-top: 4px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #eee;
+}
+
+.image-tile img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.image-tile div {
+	position: absolute;
+	top: 0;
+	padding: 1px 3px;
+	width: 100%;
+	left: 0;
+	box-sizing: border-box;
+	color: #FFF;
+	background-color: #00000080;
+}
+
+.image-tile:hover div, .image-tile:focus div  {
+    background-color: black;
+}
+
+.image-tile:focus {
+    outline: solid var(--accent_light) 2px;
+    box-shadow: none;
+}
+
+/*================================================================*/
+/* Modal Formatting */
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+    padding: 0.8em;
+    border: 1px solid #555;
+    width: 80%;
+    max-width: 600px;
+}
