@@ -1,175 +1,134 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <meta charset="utf-8">
-    <meta name="author" content="EddyK28">
-    <meta name="description" content="A Super Mystery Dungeon Rescue-Mail Converter. Text ↔ QR, US ↔ EU">
-    <meta property="og:image" content="thumb.png">
-    <meta name="twitter:image" content="thumb.png">
+    <title>Eddy's Lab: Super Rescue-Mail Converter</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
-    <title>Super Rescue-Mail Converter</title>
+    <meta name="description" itemprop="description" content="A Super Mystery Dungeon Rescue-Mail Converter. Text ↔ QR, US ↔ EU" />
+    <meta name="keywords" content="">
+    <meta name="author" content="EddyK28">
+    
+    <meta property="og:image" content="/thumb.png">
+    <meta name="twitter:image" content="/thumb.png">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" id="style-css"  href="/css/EK28.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="style-css"  href="src.css" type="text/css" media="all" />
+    
     <script type="text/javascript" src="jsQR.js"></script>
     <script type="text/javascript" src="qrcode.js"></script>
     <script type="text/javascript" src="/js/MiniModal.js"></script>
     <script type="text/javascript" src="/js/arraypolyfill.js"></script>
     <script type="text/javascript" src="SRC.js"></script>
-    
-    <style>
-        p{margin-bottom:2px;}
-        .hidden{display:none;}
-        .wid{
-            width:100%;
-            margin: 2px 0
-        }
-        
-        .tab_all{
-            border: black;
-            border-style: solid;
-            border-width: 1px;
-            padding: 1px 6px;
-            background-color: white;
-            color:lightgrey;
-            margin: 0 -2px;
-            border-radius: 4px 4px 0px 0px;
-            cursor: pointer;
-			-webkit-touch-callout: none; 	/* iOS Safari */
-			-webkit-user-select: none; 		/* Safari */
-			-khtml-user-select: none; 		/* Konqueror HTML */
-			-moz-user-select: none; 		/* Firefox */
-			-ms-user-select: none; 			/* Internet Explorer/Edge */
-            user-select: none;
-        }
-        
-        .tab_on{
-            border-bottom-color: white !important;
-            color:black !important;
-            cursor: pointer;
-        }
-        
-        
-        .section{
-            margin-top: 0.5px;
-        }
-        
-        .part{
-            display: inline-block;
-            vertical-align: middle;
-            margin: 10px;
-        }
-        
-        .vertMargin{
-            margin: 4px auto
-        }
-        
-        #main{
-            max-width: 1000px;
-            margin: 4px auto;
-            text-align: center;
-        }
-        
-        .modal {
-            display: block;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-        }
-        
-        .modal-content {
-            background-color: #fefefe;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: auto;
-            padding: 0.8em;
-            border: 1px solid #555;
-            width: 80%;
-            max-width: 600px;
-        }
-        
-    </style>
 </head>
+<body>
 
-<body onload="init()">
-
-    <center>
-        <h1>Super Rescue-Mail Converter</h1>
-        <h3>Convert Pokemon Super Mystery Dungeon rescue-mail between Text/QR and US/EU</h3>
-        <button onclick="createModalBox(document.getElementById('helpText').innerHTML)">&nbsp;&nbsp;Help&nbsp;&nbsp;</button>
-    </center>
-    <hr>
-    
-	<noscript> 
-		<style>
-			#main{display:none;}
-		</style>
-		<br>
-		<center><h3>This page won't work without Javascript. &nbsp;Please enable Javascript to continue.</h3></center>
-	</noscript>
-    
-    <div id="errCanv" style="display:none;">
-        <center><h3>This page requires HTML Canvas support. &nbsp;Please change or upgrade your browser.</h3></center>
-    </div>
+    <div id="container_page" class="type_flex">
+		<header>
+            <div id="container_head" class="type_flex">
+                <a href="/" title="Home" class="logo" rel="home">
+                    <img src="/logo.svg" style="height: 64px;margin: 0 1em;" alt="Eddy's Lab- Home" />
+                </a>
+                
+                <ul class="menu_nav">
+                    <li><a class="mbt " href="/">Home</a></li>
+                    <li><a class="mbt " href="/1.html">Link 1</a></li>
+                    <li><a class="mbt " href="/2.html">Link 2</a></li>
+                    <li><a class="mbt " href="/3.html">Link 3</a></li>
+                    <li><a class="mbt " href="/4.html">Link 4</a></li>
+                </ul>
+            </div>
+		</header>
         
-	<div id="main">
-		<div class="part">
-			<label for="containerText"><strong>Rescue-Mail Code:</strong></label><br>
-			<textarea id="containerText" placeholder="Enter Mail Code..." spellcheck="false" maxlength="114" rows="5" cols="30" style="resize: none;" oninput="filterText(this)"></textarea><br>
-            <strong>
-            <label for="regUs"><input type="radio" id="regUs" name="rdRegion" value="1" checked="checked"> US</label>&nbsp;&nbsp;
-            <label for="regEu"><input type="radio" id="regEu" name="rdRegion" value="2"> EU</label></strong> <br>
-            Note: use @ in place of ◎
-		</div>
-        
-        <div class="part">
-        <button class="wid" onclick="makeLink()">Get Link</button> <br>
-            <button class="wid" onclick="encode()">Encode →</button> <br>
-            <button class="wid" onclick="decode()">← Decode</button> <br>
-            <button class="wid" onclick="convert()">Region Convert<br>↓ ↓</button>
-        </div>
-        
-		<div class="part">
-            <label for="containerQR"><strong>Rescue-Mail QR:</strong></label><br>
-			<img id="containerQR" crossOrigin width="250" height="250"> <br>
-			<button onclick="loadUrl()">Load URL</button>
-            <button onclick="loadFile()">Load File</button>
-            <button onclick="loadCam()">Open Camera</button>
-		</div>
-
-        <div id="containerConv" hidden>
+        <div id="container_content">
+            <header><center>
+                <h1>Super Rescue-Mail Converter</h1>
+                <h3>Convert Pokemon Super Mystery Dungeon rescue-mail between Text/QR and US/EU</h3>
+                <button class="sbt" onclick="createModalBox(document.getElementById('helpText').innerHTML)">&nbsp;&nbsp;Help&nbsp;&nbsp;</button>
+            </center></header>
             <hr>
-            <button onclick="convClose()">Close</button>
-            <button onclick="convCopy()">^^^^</button> <br><br>
             
-            <div class="part">
-                <strong>Converted Rescue-Mail Code:</strong><br>
-                <textarea id="containerTextConv" readonly maxlength="114" rows="5" cols="30" style="resize: none;"></textarea><br>
-                <strong><input type="radio" id="regUsConv" name="rdRegionConv" value="1" disabled> US&nbsp;&nbsp;
-                <input type="radio" id="regEuConv" name="rdRegionConv" value="2" disabled> EU</strong> <br>
+            <script type="text/javascript">document.body.onload=init</script>
+            
+            <noscript> 
+                <style>
+                    #main{display:none;}
+                </style>
+                <br>
+                <center><h3>This page won't work without Javascript. &nbsp;Please enable Javascript to continue.</h3></center>
+            </noscript>
+            
+            <div id="errCanv" style="display:none;">
+                <center><h3>This page requires HTML Canvas support. &nbsp;Please change or upgrade your browser.</h3></center>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="part">
-                <strong>Converted Rescue-Mail QR:</strong><br>
-                <img id="containerQRConv" width="250" height="250"> <br>
+                
+            <div id="main">
+                <div class="part">
+                    <label for="containerText"><strong>Rescue-Mail Code:</strong></label><br>
+                    <textarea id="containerText" placeholder="Enter Mail Code..." spellcheck="false" maxlength="114" rows="5" cols="30" style="resize: none;" oninput="filterText(this)"></textarea><br>
+                    <strong>
+                    <label for="regUs"><input class="srd" type="radio" id="regUs" name="rdRegion" value="1" checked="checked"> US</label>&nbsp;&nbsp;
+                    <label for="regEu"><input class="srd" type="radio" id="regEu" name="rdRegion" value="2"> EU</label></strong> <br>
+                    Note: use @ in place of ◎
+                </div>
+                
+                <div class="part">
+                    <button class="wid sbt" onclick="makeLink()">Get Link</button> <br>
+                    <button class="wid sbt" onclick="encode()">Encode →</button> <br>
+                    <button class="wid sbt" onclick="decode()">← Decode</button> <br>
+                    <button class="wid sbt" onclick="convert()">Region Convert<br>↓ ↓</button>
+                </div>
+                
+                <div class="part">
+                    <label for="containerQR"><strong>Rescue-Mail QR:</strong></label><br>
+                    <img id="containerQR" crossOrigin width="250" height="250"> <br>
+                    <button class="sbt" onclick="loadUrl()">Load URL</button>
+                    <button class="sbt" onclick="loadFile()">Load File</button>
+                    <button class="sbt" onclick="loadCam()">Open Camera</button>
+                </div>
+        
+                <div id="containerConv" hidden>
+                    <hr>
+                    <button class="sbt" onclick="convClose()">Close</button>
+                    <button class="sbt" onclick="convCopy()">^^^^</button> <br><br>
+                    
+                    <div class="part">
+                        <strong>Converted Rescue-Mail Code:</strong><br>
+                        <textarea id="containerTextConv" readonly maxlength="114" rows="5" cols="30" style="resize: none;"></textarea><br>
+                        <strong><input class="srd" type="radio" id="regUsConv" name="rdRegionConv" value="1" disabled> US&nbsp;&nbsp;
+                        <input class="srd" type="radio" id="regEuConv" name="rdRegionConv" value="2" disabled> EU</strong> <br>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="part">
+                        <strong>Converted Rescue-Mail QR:</strong><br>
+                        <img id="containerQRConv" width="250" height="250"> <br>
+                    </div>
+                </div>
             </div>
-        </div>
-	</div>
-    
-    <canvas id="qrIn" width="400" height="400" hidden></canvas>
-    <canvas id="qrOut" width="250" height="250" hidden></canvas>
-    
-    <div id="helpText" hidden>
-        <p>This rescue-mail converter allows you to encode and decode rescue-mail QR codes, and convert between US and EU versions of any given mail code.  No more region locked rescues!</p>
-        <p>Text mail code entry is auto formatted and only allows valid characters to be entered, with the ◎ character entered as '@'.  Any alternate strings/chars such as "(O)", "(circle)" and '◎' are automatically converted to '@' when pasting a mail code copied from elsewhere.  QR Codes can be loaded from an image URL, an image file, or even straight from your camera.</p>
-        <p>You can encode or decode QR codes, and most importantly, create a region converted copy of the current rescue-mail.  Region conversion will use whatever input was updated last (either code or QR).</p>
-        <p>You can also share Rescue-Mail using the "Get Link" button.  Share the link and anyone will have easy access to both region versions of the rescue-mail.</p>
-        <p>This tool is still somewhat experimental, so please report any issues you may have.  You can also <a href="https://www.reddit.com/user/EddyK28">find me on Reddit</a>.</p>
-        <p>Region converting was discovered by <a href="https://www.reddit.com/user/ZappedAmpharos/">/u/ZappedAmpharos</a> on Reddit (<a href="https://redd.it/f1w6fb">see their post here</a>), so make sure to go give them a big thanks!</p>
-    </div>
+            
+            <canvas id="qrIn" width="400" height="400" hidden></canvas>
+            <canvas id="qrOut" width="250" height="250" hidden></canvas>
+            
+            <div id="helpText" hidden>
+                <p>This rescue-mail converter allows you to encode and decode rescue-mail QR codes, and convert between US and EU versions of any given mail code.  No more region locked rescues!</p>
+                <p>Text mail code entry is auto formatted and only allows valid characters to be entered, with the ◎ character entered as '@'.  Any alternate strings/chars such as "(O)", "(circle)" and '◎' are automatically converted to '@' when pasting a mail code copied from elsewhere.  QR Codes can be loaded from an image URL, an image file, or even straight from your camera.</p>
+                <p>You can encode or decode QR codes, and most importantly, create a region converted copy of the current rescue-mail.  Region conversion will use whatever input was updated last (either code or QR).</p>
+                <p>You can also share Rescue-Mail using the "Get Link" button.  Share the link and anyone will have easy access to both region versions of the rescue-mail.</p>
+                <p>This tool is still somewhat experimental, so please report any issues you may have.  You can also <a href="https://www.reddit.com/user/EddyK28">find me on Reddit</a>.</p>
+                <p>Region converting was discovered by <a href="https://www.reddit.com/user/ZappedAmpharos/">/u/ZappedAmpharos</a> on Reddit (<a href="https://redd.it/f1w6fb">see their post here</a>), so make sure to go give them a big thanks!</p>
+                <p>TODO: links to QR Libraries</p>
+            </div>
+
+		</div><!-- .container_content -->	
+
+
+		<div id="container_copyright">
+            Copyright &copy; 2020 EddyK. All rights reserved.
+		</div>
+        
+	</div><!-- .container_page -->
+
 </body>
 </html>
