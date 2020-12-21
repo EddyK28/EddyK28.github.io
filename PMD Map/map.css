@@ -1,0 +1,187 @@
+
+body{
+    box-sizing: border-box;
+    height: 100%;
+    overflow:hidden;
+    margin: 4px;
+}
+
+#panzoomContainer {
+    width: 100%;
+    height: 1031px;
+    overflow: hidden;
+    position: relative;
+    background-color: #4389d2;
+    outline: none;
+    cursor: all-scroll;
+    box-shadow: none;
+}
+
+#panzoom {
+    width:2048px; 
+    position:relative;
+    pointer-events: none;
+}
+
+.markDot{
+    display: block;
+    width: 12px;
+    height: 12px;
+}
+
+.topLink{
+    margin: 0 0.5em;
+}
+
+.labelDiv {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    font-size:40px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: -1px -1px 0 #bfbfbf, 1px -1px 0 #bfbfbf, -1px 1px 0 #bfbfbf, 1px 1px 0 #bfbfbf;
+}
+
+.poi {
+    position: absolute;
+    pointer-events: all;
+    cursor: initial;
+}
+
+.marker {
+    display: block;
+    width: 12px;
+}
+
+.poi .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: black;
+    border-style: double;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 119%;
+    border-radius: 6px;
+    padding: 3px 6px;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    margin-left: -75px;
+}
+
+.poi .tooltiptext:hover {
+    border-style: Solid;
+}
+
+.descale {
+    transform-origin: bottom;
+}
+
+.superColor {
+    border-color: #007eff;
+}
+
+.gatesColor {
+    border-color: #ff8401;
+}
+
+.explorersColor {
+    border-color: #01ff2b;
+}
+
+.rescueColor {
+    border-color: #ff2b01;
+}
+
+.marker:hover .tooltiptext, .touched .tooltiptext{
+    visibility: visible;
+}
+
+#buttonBar{
+    padding-bottom: 3px;
+    border-bottom: solid black 1px;
+}
+
+.container_icon{
+    position: absolute;
+    pointer-events: none;
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+}
+
+.checkToggle, .container_icon{
+    display:none;
+}
+
+.toggle_label{
+    display: inline-block;
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 1px 6px;
+    background-color: white;
+    color:lightgrey;
+    margin: 1px 2px;
+    border-radius: 4px;
+    cursor: pointer;
+	-webkit-touch-callout: none; 	/* iOS Safari */
+	-webkit-user-select: none; 		/* Safari */
+	-khtml-user-select: none; 		/* Konqueror HTML */
+	-moz-user-select: none; 		/* Firefox */
+	-ms-user-select: none; 			/* Internet Explorer/Edge */
+    user-select: none;
+}
+.toggle_label:hover {
+    background-color: #e6e6e6 !important;
+}
+
+.toggle_label_exit {
+    text-decoration: none;
+    color:black;
+    background-color: #ffa8a8;
+}
+.toggle_label_exit:hover {
+    background-color: red !important;
+    color: #000;
+}
+
+#toggle_markers_super:checked ~ div #toggle_label_super,
+#toggle_markers_rescue:checked ~ div #toggle_label_rescue ,
+#toggle_markers_rescue:checked ~ div #toggle_label_rescue,
+#toggle_markers_explorers:checked ~ div #toggle_label_explorers,
+#toggle_markers_gates:checked ~ div #toggle_label_gates,
+#toggle_markers_other:checked ~ div #toggle_label_other,
+#toggle_markers_continent:checked ~ div #toggle_label_continent {
+    background-color: lightgrey;
+    color:black;
+}
+
+#toggle_markers_super:checked ~ div #markers_super,
+#toggle_markers_rescue:checked ~ div #markers_rescue,
+#toggle_markers_explorers:checked ~ div #markers_explorers,
+#toggle_markers_gates:checked ~ div #markers_gates,
+#toggle_markers_other:checked ~ div #markers_other,
+#toggle_markers_continent:checked ~ div #markers_continent {
+    display:block;
+}
+
+.poi svg {
+    overflow: visible;
+}
+
+.poi path.location {
+    opacity: 0.2;
+    pointer-events: all;
+}
+.poi path.location:hover {
+    fill:green;
+    opacity: 1;
+}
+.poi svg:hover + .tooltiptext {
+    visibility: visible;
+}

@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Eddy's Lab: Pokémon Mystery Dungeon World Map</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" itemprop="description" content="A world map of the Pokémon Mystery Dungeon series.">
+    <!-- <meta name="keywords" content="**Comma separated tags for search engines**"> -->
+    <meta name="author" content="EddyK28">
+    
+    <meta property="og:image" content="/thumb.png">
+    <meta name="twitter:image" content="/thumb.png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" id="style-css"  href="/css/ek28.css" type="text/css" media="all" />
+    <link rel="stylesheet" id="style-css"  href="map.css" type="text/css" media="all" />
+    <!-- <script src="jquery.js"></script> -->
+    <!-- <script src="jquery.panzoom.js"></script> -->
+    <script src='panzoom.js'></script>
+</head>
+
+<body onresize="pageResize()" onload="map.center()">
+
+    <noscript>
+        <style>
+            .container_map{
+                width:2048px; 
+                position:relative;
+                
+                /* -ms-transform: scale(0.6); /* IE 9 */
+                /* -webkit-transform: scale(0.6); /* Safari 3-8 */
+                /* transform: scale(0.6); */
+                -moz-transform: scale(0.6);
+                -ms-zoom: 0.6;
+                zoom:0.6;
+                
+                -webkit-transform-origin-x: 0;
+                -webkit-transform-origin-y: 0;
+                transform-origin: 0px 0px;
+                
+                pointer-events: none;
+                margin-top:5px;
+            }
+            .buttons{
+                display:none;
+            }
+            body{
+                overflow:scroll !important;
+            }
+        </style>
+    </noscript>
+
+    <style id="descale"></style>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_super" checked="true" value="selected"></input>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_rescue" checked="true" value="selected"></input>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_explorers" checked="true"  value="selected"></input>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_gates" checked="true"  value="selected"></input>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_other"  value="selected"></input>
+    <input type="checkbox" class="checkToggle" id="toggle_markers_continent" checked="true" value="selected"></input>
+    
+    <div id="buttonBar">
+        <a class="toggle_label toggle_label_exit" href="info.html" class="topLink" title="Close Map"><strong>X</strong></a>
+        <label class="toggle_label" id="toggle_label_super" for="toggle_markers_super" title="Toggle PSMD Markers"><strong>Super&nbsp;<img class="markDot" style="display:inline" src="MarkerSmd.svg" alt=" "></strong></label>
+        <label class="toggle_label" id="toggle_label_rescue" for="toggle_markers_rescue" title="Toggle Rescue Team Markers"><strong>Rescue Team&nbsp;<img class="markDot" style="display:inline" src="MarkerRt.svg" alt=" "></strong></label>
+        <label class="toggle_label" id="toggle_label_explorers" for="toggle_markers_explorers" title="Toggle Explorers Markers"><strong>Explorers&nbsp;<img class="markDot" style="display:inline" src="MarkerExp.svg" alt=" "></strong></label>
+        <label class="toggle_label" id="toggle_label_gates" for="toggle_markers_gates" title="Toggle GTI Markers"><strong>Gates&nbsp;<img class="markDot" style="display:inline" src="MarkerGti.svg" alt=" "></strong></label>
+        <label class="toggle_label" id="toggle_label_other" for="toggle_markers_other" title="Toggle Other Markers"><strong>Other&nbsp;<img class="markDot" style="display:inline" src="MarkerEtc.svg" alt=" "></strong></label>
+        <label class="toggle_label" id="toggle_label_continent" for="toggle_markers_continent" title="Toggle Continent Labels"><strong>Continent&nbsp;Labels</strong></label>
+        
+    </div>
+    
+    <div id="panzoomContainer" style="width: 100%;height: 100%;">
+        <div id="panzoom">
+            
+            <div class="container_icon" id="markers_super">
+            
+                <!--Water Continent-->
+                <div class="poi marker" style="left: 892px;top: 575px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Serene_Village" class="tooltiptext descale superColor">Serene Village</a>
+                </div>
+                <div class="poi marker" style="left: 1107px;top: 562px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lively_Town" class="tooltiptext descale superColor">Lively Town</a>
+                </div>
+                <div class="poi marker" style="left: 919px;top: 568px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/School_Forest" class="tooltiptext descale superColor">School Forest</a>
+                </div>
+                <div class="poi marker" style="left: 864px;top: 567px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Foreboding_Forest" class="tooltiptext descale superColor">Foreboding Forest</a>
+                </div>
+                <div class="poi marker" style="left: 860px;top: 644px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Open_Pass" class="tooltiptext descale superColor">Open Pass</a>
+                </div>
+                <div class="poi marker" style="left: 867px;top: 607px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lush_Forest" class="tooltiptext descale superColor">Lush Forest</a>
+                </div>
+                <div class="poi marker" style="left: 832px;top: 531px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Drilbur_Coal_Mine" class="tooltiptext descale superColor">Drilbur Coal Mine</a>
+                </div>
+                <div class="poi marker" style="left: 913px;top: 526px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Glittering_Mountain" class="tooltiptext descale superColor">Glittering Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 977px;top: 612px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Nectar_Meadow" class="tooltiptext descale superColor">Nectar Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 884px;top: 601px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Ancient_Barrow" class="tooltiptext descale superColor">Ancient Barrow</a>
+                </div>
+                <div class="poi marker" style="left: 1000px;top: 518px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sheer_Mountain_Range" class="tooltiptext descale superColor">Sheer Mountain Range</a>
+                </div>
+                <div class="poi marker" style="left: 1037px;top: 550px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Gentle_Slope_Cave" class="tooltiptext descale superColor">Gentle Slope Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1036px;top: 469px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Showdown_Mountain" class="tooltiptext descale superColor">Showdown Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 807px;top: 450px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Revelation_Mountain" class="tooltiptext descale superColor">Revelation Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 977px;top: 339px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Purifying_Cave" class="tooltiptext descale superColor">Purifying Cave</a>
+                </div>
+                <div class="poi marker" style="left: 943px;top: 467px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Cave_of_Training" class="tooltiptext descale superColor">Cave of Training</a>
+                </div>
+                <div class="poi marker" style="left: 733px;top: 595px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Leafy_Highlands" class="tooltiptext descale superColor">Leafy Highlands</a>
+                </div>
+                <div class="poi marker" style="left: 984px;top: 427px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Headwater_Hollow" class="tooltiptext descale superColor">Headwater Hollow</a>
+                </div>
+                <div class="poi marker" style="left: 1023px;top: 731px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Longfield_Cave" class="tooltiptext descale superColor">Longfield Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1052px;top: 425px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sunbathed_Garden" class="tooltiptext descale superColor">Sunbathed Garden</a>
+                </div>
+                <div class="poi marker" style="left: 1061px;top: 691px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Serpentine_Mountain_Trail" class="tooltiptext descale superColor">Serpentine Mountain Trail</a>
+                </div>
+                <div class="poi marker" style="left: 817px;top: 492px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Electric_Wasteland" class="tooltiptext descale superColor">Electric Wasteland</a>
+                </div>
+                <div class="poi marker" style="left: 1109px;top: 443px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Pledge_Hill" class="tooltiptext descale superColor">Pledge Hill</a>
+                </div>
+                <div class="poi marker" style="left: 889px;top: 497px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Uprise_Range" class="tooltiptext descale superColor">Uprise Range</a>
+                </div>
+                <div class="poi marker" style="left: 849px;top: 455px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stone_Field" class="tooltiptext descale superColor">Stone Field</a>
+                </div>
+                <div class="poi marker" style="left: 918px;top: 656px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Odd_Field" class="tooltiptext descale superColor">Odd Field</a>
+                </div>
+                <div class="poi marker" style="left: 833px;top: 373px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Peewee_Meadow" class="tooltiptext descale superColor">Peewee Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 970px;top: 651px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Poliwrath_River" class="tooltiptext descale superColor">Poliwrath River</a>
+                </div>
+                <div class="poi marker" style="left: 916px;top: 721px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Maze_Meadow" class="tooltiptext descale superColor">Maze Meadow<br>(by&nbsp;Wondermail)</a>
+                </div>
+                <div class="poi marker" style="left: 848px;top: 414px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Rolling_Pass" class="tooltiptext descale superColor">Rolling Pass<br>(by&nbsp;Wondermail)</a>
+                </div>
+                <div class="poi marker" style="left: 761px;top: 537px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Thrash_Dungeon" class="tooltiptext descale superColor">Thrash Dungeon<br>(by&nbsp;Wondermail)</a>
+                </div>
+                <div class="poi marker" style="left: 1262px;top: 712px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Bustling_Valley" class="tooltiptext descale superColor">Bustling Valley</a>
+                </div>
+                <div class="poi marker" style="left: 811px;top: 649px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Waterfall_Basin_Grotto" class="tooltiptext descale superColor">Waterfall Basin Grotto</a>
+                </div>
+                
+                <!--Air Continent-->
+                <div class="poi marker" style="left: 1440px;top: 459px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Baram_Town" class="tooltiptext descale superColor">Baram Town</a>
+                </div>
+                <div class="poi marker" style="left: 1551px;top: 369px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Berry_Forest_(Mystery_Dungeon)" class="tooltiptext descale superColor">Berry Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1433px;top: 312px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Forest_of_Bounty" class="tooltiptext descale superColor">Forest of Bounty</a>
+                </div>
+                <div class="poi marker" style="left: 1525px;top: 410px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mystical_Forest" class="tooltiptext descale superColor">Mystical Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1824px;top: 538px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mysterious_Plains" class="tooltiptext descale superColor">Mysterious Plains</a>
+                </div>
+                <div class="poi marker" style="left: 1769px;top: 377px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Small_Sand_Dune" class="tooltiptext descale superColor">Small Sand Dune</a>
+                </div>
+                <div class="poi marker" style="left: 1811px;top: 458px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/World_Tree" class="tooltiptext descale superColor">World Tree</a>
+                </div>
+                <div class="poi marker" style="left: 1251px;top: 517px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Submerged_Cave" class="tooltiptext descale superColor">Submerged Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1308px;top: 484px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Prehistoric_Ruins" class="tooltiptext descale superColor">Prehistoric Ruin</a>
+                </div>
+                <div class="poi marker" style="left: 1699px;top: 398px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Super_Apple_Forest" class="tooltiptext descale superColor">Super Apple Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1842px;top: 223px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Distress_Mountain" class="tooltiptext descale superColor">Distress Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 1696px;top: 304px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Elegant_Gorge" class="tooltiptext descale superColor">Elegant Gorge</a>
+                </div>
+                <div class="poi marker" style="left: 1845px;top: 110px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Spring_of_Resolve" class="tooltiptext descale superColor">Spring of Resolve</a>
+                </div>
+                <div class="poi marker" style="left: 1865px;top: 638px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Yellow_Point" class="tooltiptext descale superColor">Yellow Point</a>
+                </div>
+                <div class="poi marker" style="left: 1701px;top: 744px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Red_Point" class="tooltiptext descale superColor">Red Point</a>
+                </div>
+                <div class="poi marker" style="left: 1821px;top: 729px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Ghost_Island" class="tooltiptext descale superColor">Ghost Island</a>
+                </div>
+                <div class="poi marker" style="left: 1511px;top: 536px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Rough_Tunnel" class="tooltiptext descale superColor">Rough Tunnel</a>
+                </div>
+                <div class="poi marker" style="left: 1409px;top: 229px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Moonlit_Cave" class="tooltiptext descale superColor">Moonlit Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1263px;top: 233px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Frosty_Tree_Steps" class="tooltiptext descale superColor">Frosty Tree Steps</a>
+                </div>
+                
+                <!--Grass Continent-->
+                <div class="poi marker" style="left: 1561px;top: 1068px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Capim_Town" class="tooltiptext descale superColor">Capim Town</a>
+                </div>
+                <div class="poi marker" style="left: 1625px;top: 907px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Spiral_Vortex" class="tooltiptext descale superColor">Spiral Vortex</a>
+                </div>
+                <div class="poi marker" style="left: 1841px;top: 900px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mystery_Jungle" class="tooltiptext descale superColor">Mystery Jungle</a>
+                </div>
+                <div class="poi marker" style="left: 1817px;top: 1167px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Heart_Lake" class="tooltiptext descale superColor">Heart Lake</a>
+                </div>
+                <div class="poi marker" style="left: 1296px;top: 952px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Hidden_Cave" class="tooltiptext descale superColor">Hidden Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1645px;top: 961px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sunny_Spot_Hill" class="tooltiptext descale superColor">Sunny Spot hill</a>
+                </div>
+                <div class="poi marker" style="left: 1719px;top: 1059px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Friendly_Meadow" class="tooltiptext descale superColor">Friendly Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 1577px;top: 1150px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Abundant_Pass" class="tooltiptext descale superColor">Abundant Pass</a>
+                </div>
+                <div class="poi marker" style="left: 1495px;top: 994px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Giant_Stone_Meadow" class="tooltiptext descale superColor">Giant Stone Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 1862px;top: 817px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Blue_Point" class="tooltiptext descale superColor">Blue Point</a>
+                </div>
+                <div class="poi marker" style="left: 1821px;top: 1004px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Triangle_Temple" class="tooltiptext descale superColor">Traingle Temple</a>
+                </div>
+                <div class="poi marker" style="left: 1510px;top: 1261px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle" class="tooltiptext descale superColor">Zero Isle</a>
+                </div>
+                <div class="poi marker" style="left: 1558px;top: 1379px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sacred_Ruins" class="tooltiptext descale superColor">Sacred Ruins</a>
+                </div>
+                <div class="poi marker" style="left: 1605px;top: 1420px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sacred_Ruins" class="tooltiptext descale superColor">Sky Ruins</a>
+                </div>
+                <div class="poi marker" style="left: 1662px;top: 1394px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dragon_Gate" class="tooltiptext descale superColor">Dragon Gate</a>
+                </div>
+                <div class="poi marker" style="left: 1911px;top: 1079px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Temple_Remains" class="tooltiptext descale superColor">Temple Remains</a>
+                </div>
+                <div class="poi marker" style="left: 1269px;top: 930px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Magma_Chamber" class="tooltiptext descale superColor">Magma Chamber</a>
+                </div>
+				<div class="poi marker" style="left: 1878px;top: 950px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Freedom_Coast" class="tooltiptext descale superColor">Freedom Coast</a>
+                </div>
+				<div class="poi marker" style="left: 1688px;top: 856px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stealth_Cavern" class="tooltiptext descale superColor">Stealth Cavern</a>
+                </div>
+				<div class="poi marker" style="left: 1725px;top: 1109px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Path_of_Fallen_Leaves" class="tooltiptext descale superColor">Path of Fallen Leaves</a>
+                </div>
+                <div class="poi marker" style="left: 1839px;top: 1340px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Crystalline_Maze" class="tooltiptext descale superColor">Crystalline Maze</a>
+                </div>
+                <div class="poi marker" style="left: 1292px;top: 1008px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Deep_Ocean_Tunnel" class="tooltiptext descale superColor">Deep Ocean Tunnel</a>
+                </div>
+                <div class="poi marker" style="left: 1737px;top: 1010px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Fresh_Meadow" class="tooltiptext descale superColor">Fresh Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 1680px;top: 1277px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Little_Canyon" class="tooltiptext descale superColor">Little Canyon</a>
+                </div>
+                <div class="poi marker" style="left: 1492px;top: 940px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Thorny_Shadow_Path" class="tooltiptext descale superColor">Thorny Shadow Path</a>
+                </div>
+                
+                
+                <!--Mist Continent-->
+                <div class="poi marker" style="left: 394px;top: 571px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Noe_Town" class="tooltiptext descale superColor">Noe Town</a>
+                </div>
+                <div class="poi marker" style="left: 566px;top: 859px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Cape_of_Wonders" class="tooltiptext descale superColor">Cape of Wonders</a>
+                </div>
+                <div class="poi marker" style="left: 556px;top: 277px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Midnight_Sun_Gorge" class="tooltiptext descale superColor">Midnight Sun Gorge</a>
+                </div>
+                <div class="poi marker" style="left: 273px;top: 653px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Forest_of_Fairies" class="tooltiptext descale superColor">Forest of Fairies</a>
+                </div>
+                <div class="poi marker" style="left: 209px;top: 581px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Flagstone_Cave" class="tooltiptext descale superColor">Flagstone Cave</a>
+                </div>
+                <div class="poi marker" style="left: 189px;top: 484px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Island_of_Isolation" class="tooltiptext descale superColor">Island of Isolation</a>
+                </div>
+                <div class="poi marker" style="left: 269px;top: 721px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Buried_Ruins_(Super_Mystery_Dungeon)" class="tooltiptext descale superColor">Buried Ruins</a>
+                </div>
+				<div class="poi marker" style="left: 161px;top: 365px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Gooey_Bog" class="tooltiptext descale superColor">Gooey Bog</a>
+                </div>
+				<div class="poi marker" style="left: 424px;top: 346px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Frozen_Falls" class="tooltiptext descale superColor">Frozen Falls</a>
+                </div>
+				<div class="poi marker" style="left: 577px;top: 406px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lake_of_Enlightenment" class="tooltiptext descale superColor">Lake of Enlightenment</a>
+                </div>
+                <div class="poi marker" style="left: 383px;top: 103px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Aurora%27s_Edge" class="tooltiptext descale superColor">Auroras Edge</a>
+                </div>
+                <div class="poi marker" style="left: 157px;top: 178px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Clear_Lake" class="tooltiptext descale superColor">Clear Lake</a>
+                </div>
+                <div class="poi marker" style="left: 259px;top: 121px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Frozen_Mountain" class="tooltiptext descale superColor">Frozen Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 77px;top: 303px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Meteorite_Crater" class="tooltiptext descale superColor">Meteorite Crater</a>
+                </div>
+                <div class="poi marker" style="left: 418px;top: 778px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Pumpkaboo_Forest" class="tooltiptext descale superColor">Pumpkaboo Forest</a>
+                </div>
+                
+                
+                <!--Sand Continent-->
+                <div class="poi marker" style="left: 319px;top: 1248px;">
+                    <img class="markDot" src="MarkerSmdL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sahra_Town" class="tooltiptext descale superColor">Sahra Town</a>
+                </div>
+                
+                <div class="poi marker" style="left: 121px;top: 1239px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Yellow_Sand_Labyrinth" class="tooltiptext descale superColor">Yellow Sand Labyrinth</a>
+                </div>
+                <div class="poi marker" style="left: 201px;top: 1314px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Valley_of_Strong_Winds" class="tooltiptext descale superColor">Valley of Strong Winds</a>
+                </div>
+                <div class="poi marker" style="left: 174px;top: 1135px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sand_Dune_of_Spirits" class="tooltiptext descale superColor">Sand Dune of Spirits</a>
+                </div>
+                <div class="poi marker" style="left: 135px;top: 1379px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Hall_of_Magic" class="tooltiptext descale superColor">Hall of Magic</a>
+                </div>
+                <div class="poi marker" style="left: 135px;top: 1137px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sandy_Cave_(Mystery_Dungeon)" class="tooltiptext descale superColor">Sandy Cave</a>
+                </div>
+                <div class="poi marker" style="left: 328px;top: 1380px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mysterious_Geoglyph" class="tooltiptext descale superColor">Mysterious Geoglyph</a>
+                </div>
+                <div class="poi marker" style="left: 194px;top: 1167px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Thirsty_Desert" class="tooltiptext descale superColor">Thirsty Desert</a>
+                </div>
+                <div class="poi marker" style="left: 161px;top: 1193px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Apex_Mountain" class="tooltiptext descale superColor">Apex Mountain</a>
+                </div>
+				<div class="poi marker" style="left: 442px;top: 1114px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Isle_of_Light" class="tooltiptext descale superColor">Isle of Light</a>
+                </div>
+				<div class="poi marker" style="left: 283px;top: 1291px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Secret_Quarry" class="tooltiptext descale superColor">Secret Quarry</a>
+                </div>
+				<div class="poi marker" style="left: 349px;top: 1295px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Golden_Suite" class="tooltiptext descale superColor">Golden Suite</a>
+                </div>
+				<div class="poi marker" style="left: 130px;top: 1340px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Snowy_Cave" class="tooltiptext descale superColor">Snowy Cave</a>
+                </div>
+                <div class="poi marker" style="left: 98px;top: 1315px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Fossil_Excavation" class="tooltiptext descale superColor">Fossil Excavation </a>
+                </div>
+                <div class="poi marker" style="left: 269px;top: 1211px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Holey_Meadow" class="tooltiptext descale superColor">Holey Meadow </a>
+                </div>
+                <div class="poi marker" style="left: 120px;top: 1285px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Jewel_Road" class="tooltiptext descale superColor">Jewel Road </a>
+                </div>
+                <div class="poi marker" style="left: 153px;top: 1105px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stone_Tree_Mountain" class="tooltiptext descale superColor">Stone Tree Mountain</a>
+                </div>
+
+
+                <!--Misc-->
+                <div class="poi marker" style="left: 701px;top: 1208px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Tree_of_Life" class="tooltiptext descale superColor">Tree of Life</a>
+                </div>
+                <div class="poi marker" style="left: 744px;top: 1048px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Fire_Island_Volcano" class="tooltiptext descale superColor">Fire Island Volcano</a>
+                </div>
+                <div class="poi marker" style="left: 1218px;top: 1216px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Seafloor_Ruins" class="tooltiptext descale superColor">Seafloor Ruins</a>
+                </div>
+                <div class="poi marker" style="left: 1220px;top: 1429px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Altar_of_Ice" class="tooltiptext descale superColor">Altar of Ice</a>
+                </div>
+                <div class="poi marker"  style="left: 1131px;top: 1013px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Ocean_Tempest" class="tooltiptext descale superColor">Ocean Tempest</a>
+                </div>
+                <div class="poi marker" style="left: 1156px;top: 861px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sea_Shrine" class="tooltiptext descale superColor">Sea Shrine</a>
+                </div>
+                <div class="poi marker" style="left: 945px;top: 850px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Island_of_Storms" class="tooltiptext descale superColor">Island of Storms</a>
+                </div>
+                <div class="poi marker" style="left: 748px;top: 1353px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Prism_Bridge" class="tooltiptext descale superColor">Prism Bridge</a>
+                </div>
+                
+                <div class="poi marker" style="left: 794px;top: 192px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Destiny_Tower_(Super_Mystery_Dungeon)" class="tooltiptext descale superColor">Destiny Tower</a>
+                </div>
+                <div class="poi marker" style="left: 766px;top: 224px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Guidance_Ruins" class="tooltiptext descale superColor">Guidance Ruins</a>
+                </div>
+                <div class="poi marker" style="left: 847px;top: 231px;">
+                    <img class="markDot" src="MarkerSmd.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lake_of_Mysterious_Light" class="tooltiptext descale superColor">Lake of Mysterious Light</a>
+                </div>
+            </div>
+
+            <div class="container_icon" id="markers_rescue">
+                <div class="poi marker" style="left: 1474px;top: 462px;">
+                    <img class="markDot" ontouchend="touchVis(this,event);" src="MarkerRtL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Square" class="tooltiptext descale rescueColor">Pokémon Square</a>
+                </div>
+                <div class="poi marker" style="left: 1458px;top: 439px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Tiny_Woods" class="tooltiptext descale rescueColor">Tiny Woods</a>
+                </div>
+                <div class="poi marker" style="left: 1526px;top: 450px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sinister_Woods" class="tooltiptext descale rescueColor">Sinister Woods</a>
+                </div>
+                <div class="poi marker" style="left: 1546px;top: 689px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Remains_Island" class="tooltiptext descale rescueColor">Remains Island</a>
+                </div>
+                <div class="poi marker" style="left: 1560px;top: 635px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Unown_Relic" class="tooltiptext descale rescueColor">Unown Relic</a>
+                </div>
+                <div class="poi marker" style="left: 1416px;top: 681px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Southern_Cavern" class="tooltiptext descale rescueColor">Southern Cavern</a>
+                </div>
+                <div class="poi marker" style="left: 1684px;top: 491px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Waterfall_Pond" class="tooltiptext descale rescueColor">Waterfall Pond</a>
+                </div>
+                <div class="poi marker" style="left: 1762px;top: 597px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Darknight_Relic" class="tooltiptext descale rescueColor">Darknight Relic</a>
+                </div>
+                <div class="poi marker" style="left: 1813px;top: 546px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Buried_Relic" class="tooltiptext descale rescueColor">Buried Relic</a>
+                </div>
+                <div class="poi marker" style="left: 1846px;top: 560px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Wyvern_Hill" class="tooltiptext descale rescueColor">Wyvern Hill</a>
+                </div>
+                <div class="poi marker" style="left: 1825px;top: 464px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Solar_Cave" class="tooltiptext descale rescueColor">Solar Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1250px;top: 554px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Western_Cave" class="tooltiptext descale rescueColor">Western Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1382px;top: 395px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Silver_Trench" class="tooltiptext descale rescueColor">Silver Trench</a>
+                </div>
+                <div class="poi marker" style="left: 1182px;top: 364px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lightning_Field" class="tooltiptext descale rescueColor">Lightning Field</a>
+                </div>
+                <div class="poi marker" style="left: 1251px;top: 338px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Fiery_Field" class="tooltiptext descale rescueColor">Fiery Field</a>
+                </div>
+                <div class="poi marker" style="left: 1274px;top: 251px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Northwind_Field" class="tooltiptext descale rescueColor">North-Wind Field</a>
+                </div>
+                <div class="poi marker" style="left: 1168px;top: 195px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Faraway" class="tooltiptext descale rescueColor">Mt. Faraway</a>
+                </div>
+                <div class="poi marker" style="left: 1466px;top: 626px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Great_Canyon" class="tooltiptext descale rescueColor">Great Canyon</a>
+                </div>
+                <div class="poi marker" style="left: 1472px;top: 570px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Oddity_Cave" class="tooltiptext descale rescueColor">Oddity Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1510px;top: 565px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Desert_Region" class="tooltiptext descale rescueColor">Desert Region</a>
+                </div>
+                <div class="poi marker" style="left: 1565px;top: 518px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Murky_Cave" class="tooltiptext descale rescueColor">Murky Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1678px;top: 576px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Marvelous_Sea" class="tooltiptext descale rescueColor">Marvelous Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1423px;top: 329px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Thunderwave_Cave" class="tooltiptext descale rescueColor">Thunderwave Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1454px;top: 322px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Howling_Forest" class="tooltiptext descale rescueColor">Howling Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1501px;top: 335px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Steel" class="tooltiptext descale rescueColor">Mt. Steel</a>
+                </div>
+                <div class="poi marker" style="left: 1751px;top: 352px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lapis_Cave" class="tooltiptext descale rescueColor">Lapis Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1288px;top: 708px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Purity_Forest" class="tooltiptext descale rescueColor">Purity Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1298px;top: 736px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Joyous_Tower" class="tooltiptext descale rescueColor">Joyous Tower</a>
+                </div>
+                <div class="poi marker" style="left: 1237px;top: 730px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Wish_Cave" class="tooltiptext descale rescueColor">Wish Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1302px;top: 465px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Grand_Sea" class="tooltiptext descale rescueColor">Grand Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1372px;top: 617px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stormy_Sea" class="tooltiptext descale rescueColor">Stormy Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1329px;top: 304px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Fantasy_Strait" class="tooltiptext descale rescueColor">Fantasy Strait</a>
+                </div>
+                <div class="poi marker" style="left: 1524px;top: 371px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Silent_Chasm" class="tooltiptext descale rescueColor">Silent Chasm</a>
+                </div>
+                <div class="poi marker" style="left: 1591px;top: 378px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Thunder" class="tooltiptext descale rescueColor">Mt. Thunder</a>
+                </div>
+                <div class="poi marker" style="left: 1545px;top: 318px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Uproar_Forest" class="tooltiptext descale rescueColor">Uproar Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1454px;top: 240px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Pitfall_Valley" class="tooltiptext descale rescueColor">Pitfall Valley</a>
+                </div>
+                <div class="poi marker" style="left: 1402px;top: 214px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Northern_Range" class="tooltiptext descale rescueColor">Northern Range</a>
+                </div>
+                <div class="poi marker" style="left: 1541px;top: 128px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Far-off_Sea" class="tooltiptext descale rescueColor">Far-Off Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1725px;top: 80px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sky_Tower" class="tooltiptext descale rescueColor">Sky Tower</a>
+                </div>
+                <div class="poi marker" style="left: 1863px;top: 129px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Freeze" class="tooltiptext descale rescueColor">Mt. Freeze</a>
+                </div>
+                <div class="poi marker" style="left: 1834px;top: 179px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Frosty_Forest" class="tooltiptext descale rescueColor">Frosty Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1912px;top: 213px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Magma_Cavern" class="tooltiptext descale rescueColor">Magma Cavern</a>
+                </div>
+                <div class="poi marker" style="left: 1694px;top: 288px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Meteor_Cave" class="tooltiptext descale rescueColor">Meteor Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1785px;top: 235px;">
+                    <img class="markDot" src="MarkerRt.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Blaze" class="tooltiptext descale rescueColor">Mt. Blaze</a>
+                </div>
+            </div>
+
+            <div class="container_icon" id="markers_explorers">
+                <div class="poi marker" style="left: 1520px;top: 1120px;">
+                    <img class="markDot" src="MarkerExpL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Treasure_Town" class="tooltiptext descale explorersColor">Treasure Town</a>
+                </div>
+                <div class="poi marker" style="left: 1514px;top: 1156px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Beach_Cave" class="tooltiptext descale explorersColor">Beach Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1597px;top: 1075px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Waterfall_Cave" class="tooltiptext descale explorersColor">Waterfall Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1492px;top: 1076px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Brine_Cave" class="tooltiptext descale explorersColor">Brine Cave</a>
+                </div>
+                
+                <div class="poi marker" style="left: 1523px;top: 1222px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle_North" class="tooltiptext descale explorersColor">Zero Isle North</a>
+                </div>
+                <div class="poi marker" style="left: 1549px;top: 1245px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle_East" class="tooltiptext descale explorersColor">Zero Isle East</a>
+                </div>
+                <div class="poi marker" style="left: 1520px;top: 1274px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle_South" class="tooltiptext descale explorersColor">Zero Isle South</a>
+                </div>
+                <div class="poi marker" style="left: 1491px;top: 1244px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle_West" class="tooltiptext descale explorersColor">Zero Isle West</a>
+                </div>
+                <div class="poi marker" style="left: 1188px;top: 1407px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Blizzard_Island" class="tooltiptext descale explorersColor">Blizzard Island</a>
+                </div>
+                <div class="poi marker" style="left: 1209px;top: 1434px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Crevice_Cave" class="tooltiptext descale explorersColor">Crevice Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1423px;top: 1403px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Surrounded_Sea" class="tooltiptext descale explorersColor">Surrounded Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1572px;top: 1007px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Luminous_Spring" class="tooltiptext descale explorersColor">Luminous Spring</a>
+                </div>
+                <div class="poi marker" style="left: 1581px;top: 1022px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mystifying_Forest" class="tooltiptext descale explorersColor">Mystifying Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1615px;top: 1158px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Craggy_Coast" class="tooltiptext descale explorersColor">Craggy Coast</a>
+                </div>
+                <div class="poi marker" style="left: 1592px;top: 981px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Amp_Plains" class="tooltiptext descale explorersColor">Amp Plains</a>
+                </div>
+                <div class="poi marker" style="left: 1692px;top: 1242px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Aegis_Cave" class="tooltiptext descale explorersColor">Aegis Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1771px;top: 1157px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Foggy_Forest" class="tooltiptext descale explorersColor">Foggy Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1805px;top: 1182px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Steam_Cave" class="tooltiptext descale explorersColor">Steam Cave / Fogbound Lake</a>
+                </div>
+                <div class="poi marker" style="left: 1843px;top: 1002px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Travail" class="tooltiptext descale explorersColor">Mt. Travail</a>
+                </div>
+                <div class="poi marker" style="left: 1905px;top: 983px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Shimmer_Hill" class="tooltiptext descale explorersColor">Shimmer Hill</a>
+                </div>
+                <div class="poi marker" style="left: 1910px;top: 1069px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Spacial_Rift" class="tooltiptext descale explorersColor">Sky Rift/Spacial Rift</a>
+                </div>
+                <div class="poi marker" style="left: 1272px;top: 905px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dark_Crater" class="tooltiptext descale explorersColor">Dark Crater</a>
+                </div>
+                <div class="poi marker" style="left: 1239px;top: 1423px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Avalanche" class="tooltiptext descale explorersColor">Mt. Avalanche</a>
+                </div>
+                <div class="poi marker" style="left: 1354px;top: 1229px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Hidden_Land" class="tooltiptext descale explorersColor">Hidden Land</a>
+                </div>
+                <div class="poi marker" style="left: 1317px;top: 1167px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Temporal_Tower" class="tooltiptext descale explorersColor">Temporal Tower</a>
+                </div>
+                <div class="poi marker" style="left: 1305px;top: 1039px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Miracle_Sea" class="tooltiptext descale explorersColor">Miracle Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1251px;top: 982px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Mistral" class="tooltiptext descale explorersColor">Mt. Mistral</a>
+                </div>
+                <div class="poi marker" style="left: 1316px;top: 952px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Giant_Volcano" class="tooltiptext descale explorersColor">Giant Volcano</a>
+                </div>
+                <div class="poi marker" style="left: 1357px;top: 906px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Inferno_Cave" class="tooltiptext descale explorersColor">Inferno Cave<br>(Sky Only)</a>
+                </div>
+                <div class="poi marker" style="left: 1445px;top: 1181px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Bottomless_Sea" class="tooltiptext descale explorersColor">Bottomless Sea</a>
+                </div>
+                <div class="poi marker" style="left: 1565px;top: 1093px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Serenity_River" class="tooltiptext descale explorersColor">Serenity River</a>
+                </div>
+                <div class="poi marker" style="left: 1819px;top: 1220px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lost_Wilderness" class="tooltiptext descale explorersColor">Lost Wilderness</a>
+                </div>
+                <div class="poi marker" style="left: 1837px;top: 1334px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Southeastern_Islands" class="tooltiptext descale explorersColor">Southeastern Islands<br>(Sky Only)</a>
+                </div>
+                <div class="poi marker" style="left: 1754px;top: 1170px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="***" class="tooltiptext descale explorersColor">Forgotten Woods<br>(Sky Only)</a>
+                </div>
+                <div class="poi marker" style="left: 1829px;top: 904px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mystery_Jungle" class="tooltiptext descale explorersColor">Mystery Jungle</a>
+                </div>
+                <div class="poi marker" style="left: 1944px;top: 844px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Happy_Outlook" class="tooltiptext descale explorersColor">Happy Outlook</a>
+                </div>
+                <div class="poi marker" style="left: 1550px;top: 1167px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Drenched_Bluff" class="tooltiptext descale explorersColor">Drenched Bluff</a>
+                </div>
+                <div class="poi marker" style="left: 1508px;top: 1010px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Quicksand_Cave" class="tooltiptext descale explorersColor">Quicksand Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1542px;top: 995px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Northern_Desert" class="tooltiptext descale explorersColor">Northern Desert</a>
+                </div>
+                <div class="poi marker" style="left: 1491px;top: 935px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Shimmer_Desert" class="tooltiptext descale explorersColor">Shimmer Desert</a>
+                </div>
+                <div class="poi marker" style="left: 1674px;top: 943px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Crystal_Cave" class="tooltiptext descale explorersColor">Crystal Cave</a>
+                </div>
+                <div class="poi marker" style="left: 1671px;top: 881px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Crystal_Crossing" class="tooltiptext descale explorersColor">Crystal Crossing</a>
+                </div>
+                <div class="poi marker" style="left: 1412px;top: 1267px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Marine_Resort" class="tooltiptext descale explorersColor">Marine Resort</a>
+                </div>
+                <div class="poi marker" style="left: 1521px;top: 1246px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Zero_Isle_Center" class="tooltiptext descale explorersColor">Zero Isle Central<br>(Sky Only)</a>
+                </div>
+                <div class="poi marker" style="left: 1768px;top: 974px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Treeshroud_Forest" class="tooltiptext descale explorersColor">Treeshroud Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1573px;top: 1367px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lake_Afar" class="tooltiptext descale explorersColor">Lake Afar</a>
+                </div>
+                <div class="poi marker" style="left: 1621px;top: 1361px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Midnight_Forest" class="tooltiptext descale explorersColor">Midnight Forest</a>
+                </div>
+                <div class="poi marker" style="left: 1680px;top: 1350px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/World_Abyss" class="tooltiptext descale explorersColor">World Abyss</a>
+                </div>
+                <div class="poi marker" style="left: 1804px;top: 831px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Destiny_Tower" class="tooltiptext descale explorersColor">Destiny Tower</a>
+                </div>
+                <div class="poi marker" style="left: 1733px;top: 1244px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Concealed_Ruins" class="tooltiptext descale explorersColor">Concealed Ruins</a>
+                </div>
+                <div class="poi marker" style="left: 1738px;top: 1114px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Horn" class="tooltiptext descale explorersColor">Mt. Horn</a>
+                </div>
+                <div class="poi marker" style="left: 1579px;top: 1162px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Tiny_Meadow" class="tooltiptext descale explorersColor">Tiny Meadow</a>
+                </div>
+                <div class="poi marker" style="left: 1609px;top: 1101px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Lush_Prairie" class="tooltiptext descale explorersColor">Lush Prairie</a>
+                </div>
+                <div class="poi marker" style="left: 1760px;top: 1077px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Shaymin_Village" class="tooltiptext descale explorersColor">Shaymin Village</a>
+                </div>
+                <div class="poi marker" style="left: 1509px;top: 864px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sky_Stairway" class="tooltiptext descale explorersColor">Sky Stairway</a>
+                </div>
+				<div class="poi marker" style="left: 1360px;top: 1293px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="***" class="tooltiptext descale explorersColor">Devil Seas<br>(Sky Only)</a>
+                </div>
+				<div class="poi marker" style="left: 1682px;top: 1120px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Landslide_Cave" class="tooltiptext descale explorersColor">Landslide Cave</a>
+                </div>
+				<div class="poi marker" style="left: 1670px;top: 1137px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Star_Cave" class="tooltiptext descale explorersColor">Star Cave<br>(Sky Only)</a>
+                </div>
+				<div class="poi marker" style="left: 1693px;top: 1059px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Apple_Woods" class="tooltiptext descale explorersColor">Apple Woods</a>
+                </div>
+				<div class="poi marker" style="left: 1651px;top: 1065px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Oran_Forest" class="tooltiptext descale explorersColor">Oran Forest</a>
+                </div>
+				<div class="poi marker" style="left: 1660px;top: 1018px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mt._Bristle" class="tooltiptext descale explorersColor">Mt. Bristle</a>
+                </div>
+				<div class="poi marker" style="left: 1743px;top: 1030px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Labyrinth_Cave" class="tooltiptext descale explorersColor">Labyrinth Cave</a>
+                </div>
+				<div class="poi marker" style="left: 1624px;top: 1123px;">
+                    <img class="markDot" src="MarkerExp.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Hot_Spring" class="tooltiptext descale explorersColor">Hot Springs</a>
+                </div>
+            </div>
+
+            <div class="container_icon" id="markers_gates">
+                <div class="poi marker" style="left: 439px;top: 467px;">
+                    <img class="markDot" src="MarkerGtiL.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Post_Town" class="tooltiptext descale gatesColor">Post Town</a>
+                </div>
+                <div class="poi marker" style="left: 435px;top: 385px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Windy_Shoreline" class="tooltiptext descale gatesColor">Windy Shoreline</a>
+                </div>
+                <div class="poi marker" style="left: 379px;top: 362px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Worldcore" class="tooltiptext descale gatesColor">Worldcore</a>
+                </div>
+                <div class="poi marker" style="left: 430px;top: 353px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Great_Glacier" class="tooltiptext descale gatesColor">Great Glacier</a>
+                </div>
+                <div class="poi marker" style="left: 430px;top: 323px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Glacier_Palace" class="tooltiptext descale gatesColor">Glacier Palace</a>
+                </div>
+                <div class="poi marker" style="left: 464px;top: 559px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dreamy_Island" class="tooltiptext descale gatesColor">Dreamy Island</a>
+                </div>
+                <div class="poi marker" style="left: 493px;top: 566px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Forest_of_Shadows" class="tooltiptext descale gatesColor">Forest of Shadows</a>
+                </div>
+                <div class="poi marker" style="left: 469px;top: 307px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Cape_at_the_Edge" class="tooltiptext descale gatesColor">Cape at the Edge</a>
+                </div>
+                <div class="poi marker" style="left: 576px;top: 530px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Ochre_Quarry" class="tooltiptext descale gatesColor">Ochre Quarry</a>
+                </div>
+                <div class="poi marker" style="left: 599px;top: 518px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Canyon_Foot" class="tooltiptext descale gatesColor">Canyon Foot</a>
+                </div>
+                <div class="poi marker" style="left: 528px;top: 504px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Withered_Savanna" class="tooltiptext descale gatesColor">Withered Savannah</a>
+                </div>
+                <div class="poi marker" style="left: 559px;top: 561px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Daybreak_Ridge" class="tooltiptext descale gatesColor">Daybreak Ridge</a>
+                </div>
+                <div class="poi marker" style="left: 512px;top: 550px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="***" class="tooltiptext descale gatesColor">Mount Kilionea</a>
+                </div>
+                <div class="poi marker" style="left: 580px;top: 381px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Moonlit_Forest" class="tooltiptext descale gatesColor">Moonlit Forest</a>
+                </div>
+                <div class="poi marker" style="left: 313px;top: 499px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Tempting_Path" class="tooltiptext descale gatesColor">Tempting Path</a>
+                </div>
+                <div class="poi marker" style="left: 358px;top: 471px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Hazy_Pass" class="tooltiptext descale gatesColor">Hazy Pass</a>
+                </div>
+                <div class="poi marker" style="left: 366px;top: 443px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stony_Cave" class="tooltiptext descale gatesColor">Stony Cave</a>
+                </div>
+                <div class="poi marker" style="left: 337px;top: 354px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Jaws_of_the_Abyss" class="tooltiptext descale gatesColor">Jaws of the Abyss</a>
+                </div>
+                <div class="poi marker" style="left: 408px;top: 537px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Forest_Grotto" class="tooltiptext descale gatesColor">Forest Grotto</a>
+                </div>
+                <div class="poi marker" style="left: 449px;top: 509px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Mountain_Pass" class="tooltiptext descale gatesColor">Mountain Pass</a>
+                </div>
+                <div class="poi marker" style="left: 422px;top: 488px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Ragged_Mountain" class="tooltiptext descale gatesColor">Ragged Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 581px;top: 475px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Scorching_Desert" class="tooltiptext descale gatesColor">Scorching Desert</a>
+                </div>
+                <div class="poi marker" style="left: 499px;top: 337px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Silent_Tundra" class="tooltiptext descale gatesColor">Silent Tundra</a>
+                </div>
+                <div class="poi marker" style="left: 573px;top: 446px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Rusty_Mountain" class="tooltiptext descale gatesColor">Rusty Mountain</a>
+                </div>
+                <div class="poi marker" style="left: 506px;top: 482px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Grove_of_Whispers" class="tooltiptext descale gatesColor">Grove of Whispers</a>
+                </div>
+                <div class="poi marker" style="left: 480px;top: 492px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Breezy_Meadow" class="tooltiptext descale gatesColor">Breezy Meadow</a>
+                </div>
+				<div class="poi marker" style="left: 611px;top: 487px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Holehills" class="tooltiptext descale gatesColor">Holehills</a>
+                </div>
+				<div class="poi marker" style="left: 496px;top: 377px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Freezing_Pillar" class="tooltiptext descale gatesColor">Freezing Pillar</a>
+                </div>
+				<div class="poi marker" style="left: 525px;top: 365px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Slumbering_Cave" class="tooltiptext descale gatesColor">Slumbering Cave</a>
+                </div>
+				<div class="poi marker" style="left: 563px;top: 327px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Smoking_Mountain" class="tooltiptext descale gatesColor">Smoking Mountain</a>
+                </div>
+				<div class="poi marker" style="left: 534px;top: 296px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Path_of_No_Return" class="tooltiptext descale gatesColor">Path of no Return</a>
+                </div>
+				<div class="poi marker" style="left: 412px;top: 411px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Desolate_Canyon" class="tooltiptext descale gatesColor">Desolate Canyon</a>
+                </div>
+				<div class="poi marker" style="left: 438px;top: 437px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Inflora_Forest" class="tooltiptext descale gatesColor">Inflora Forest</a>
+                </div>
+				<div class="poi marker" style="left: 479px;top: 433px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Stompstump_Peak" class="tooltiptext descale gatesColor">Stompstump Peak</a>
+                </div>
+				<div class="poi marker" style="left: 530px;top: 433px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Eastern_Savanna" class="tooltiptext descale gatesColor">Eastern Savannah</a>
+                </div>
+				<div class="poi marker" style="left: 467px;top: 409px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Crags_of_Lament" class="tooltiptext descale gatesColor">Crags of Lament</a>
+                </div>
+				<div class="poi marker" style="left: 340px;top: 442px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Redland_Reaches" class="tooltiptext descale gatesColor">Redland Reaches</a>
+                </div>
+				<div class="poi marker" style="left: 329px;top: 383px;">
+                    <img class="markDot" src="MarkerGti.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Miragesands" class="tooltiptext descale gatesColor">Miragesands</a>
+                </div>
+            </div>
+
+            <div class="container_icon" id="markers_other">
+                <div class="poi marker" style="left: 1341px;top: 1224px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Sealed_Ruin" class="tooltiptext descale">Sealed Ruin<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1330px;top: 1214px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dark_Hill" class="tooltiptext descale">Dark Hill<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1327px;top: 1196px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Chasm_Cave" class="tooltiptext descale">Chasm Cave<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1366px;top: 1222px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Spacial_Cliffs" class="tooltiptext descale">Spacial Cliffs<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1362px;top: 1206px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dusk_Forest" class="tooltiptext descale">Dusk Forest<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1366px;top: 1185px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="***" class="tooltiptext descale">Dark Swamp / Passage of Time<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1344px;top: 1184px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dark_Wasteland" class="tooltiptext descale">Dark Wasteland<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1344px;top: 1201px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Barren_Valley" class="tooltiptext descale">Barren Valley<br>(Explorers Future)</a>
+                </div>
+                
+                <div class="poi marker" style="left: 1223px;top: 1424px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Icicle_Forest" class="tooltiptext descale">Icicle Forest<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1179px;top: 1413px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Dark_Ice_Mountain" class="tooltiptext descale">Dark Ice Mountain<br>(Explorers Future)</a>
+                </div>
+                <div class="poi marker" style="left: 1242px;top: 1411px;">
+                    <img class="markDot" src="MarkerEtc.svg" alt=" ">
+                    <a href="https://bulbapedia.bulbagarden.net/wiki/Vast_Ice_Mountain" class="tooltiptext descale">Vast Ice Mountain<br>(Explorers Future)</a>
+                </div>
+                
+                
+                <div class="poi" style="pointer-events: none; left: 1402px;top: 662px;">
+                    <svg xmlns="http://www.w3.org/2000/svg">
+                        <path class="location" id="Selection #2" fill="blue" stroke="black" stroke-width="1" d="M 184.50,37.75 C 181.94,37.77 173.63,37.81 171.71,38.85 170.44,39.54 169.64,40.56 168.95,41.81 168.95,41.81 164.30,57.75 164.30,57.75 163.93,61.46 165.66,63.20 164.92,65.70 163.90,69.11 159.47,70.42 156.50,71.56 156.50,71.56 148.50,74.34 148.50,74.34 142.90,76.45 138.14,79.40 134.50,72.75 136.08,72.08 137.46,71.74 138.50,70.19 141.34,65.97 135.31,54.37 130.45,53.99 122.56,53.37 117.48,64.90 107.50,67.30 103.20,68.34 100.17,64.94 96.50,63.30 91.78,61.20 82.90,62.14 86.63,53.75 86.63,53.75 88.50,50.75 88.50,50.75 83.88,45.34 81.82,47.13 75.50,46.70 75.50,46.70 66.51,45.15 66.51,45.15 65.02,45.29 56.07,50.38 54.80,51.47 51.41,54.35 51.73,60.16 45.91,62.46 45.91,62.46 34.87,65.28 34.87,65.28 31.58,66.91 31.22,69.77 23.50,72.00 18.47,73.45 16.16,71.11 12.89,74.10 10.81,76.01 9.91,79.24 8.79,81.75 6.65,86.54 0.63,95.71 1.18,100.75 1.62,104.82 6.20,109.53 6.46,117.75 6.71,125.86 0.30,131.41 2.79,140.57 3.50,143.16 6.23,144.88 8.50,148.60 8.50,148.60 19.50,148.60 19.50,148.60 21.59,148.21 24.23,146.90 26.19,147.90 27.63,148.63 28.27,150.29 28.60,151.77 29.86,157.47 25.25,160.37 21.54,163.75 21.54,163.75 16.24,168.74 16.24,168.74 13.78,170.16 11.16,169.38 9.06,171.35 6.51,173.74 5.88,182.44 6.81,185.60 7.77,188.85 10.63,188.77 13.50,188.73 24.16,188.60 24.27,181.18 31.50,182.36 42.05,184.09 36.57,200.82 35.50,207.75 40.03,210.19 47.87,216.57 50.65,220.92 53.41,225.24 51.82,230.75 58.50,231.59 62.54,232.10 64.63,230.30 67.50,229.34 67.50,229.34 72.22,229.34 72.22,229.34 75.29,228.61 81.62,224.88 83.34,222.32 85.77,218.69 84.26,213.57 88.13,206.77 91.18,201.41 93.44,202.36 98.50,200.20 105.04,197.41 107.54,194.08 114.50,195.75 114.50,195.75 119.50,184.75 119.50,184.75 129.16,190.89 126.15,187.47 132.50,189.32 139.42,191.34 139.60,198.19 149.31,195.46 152.53,194.55 153.57,191.43 155.04,188.75 156.33,186.38 158.49,183.35 158.71,180.75 159.34,178.07 157.42,164.73 158.71,161.75 160.67,155.95 164.54,156.32 169.50,155.16 173.64,154.19 172.89,154.00 177.50,153.75 177.50,153.75 179.50,136.64 179.50,136.64 185.39,137.68 184.04,137.19 189.50,136.64 191.59,136.70 194.56,136.85 196.50,136.64 201.45,134.97 208.37,126.97 211.28,122.75 214.01,118.77 212.77,118.18 216.27,112.75 218.30,109.59 226.37,98.09 225.38,95.03 224.87,93.50 213.33,77.02 227.50,77.75 227.50,77.75 230.81,68.75 230.81,68.75 233.45,63.70 238.10,59.38 235.86,52.77 233.61,46.10 227.70,49.30 227.50,38.75 227.28,26.55 228.01,27.46 225.94,14.75 225.39,11.41 225.61,8.62 223.19,5.90 219.24,1.46 212.83,2.96 208.72,6.40 205.97,8.69 205.66,11.17 202.37,14.66 195.22,22.25 187.29,26.33 184.50,37.75 Z M 65.75,95.13 C 75.02,95.52 73.41,99.96 74.87,105.75 78.15,118.73 75.80,116.40 68.16,124.95 65.05,128.43 64.45,131.90 58.77,132.14 53.04,132.37 54.70,127.18 52.19,124.43 50.17,122.22 47.41,122.86 45.10,120.98 40.46,117.22 40.15,108.93 43.03,104.05 46.09,98.87 51.11,100.30 54.74,99.24 59.55,97.84 58.14,96.18 65.75,95.13 Z M 94.50,128.50 C 92.96,128.04 92.10,128.00 90.73,126.91 82.97,120.73 95.70,113.61 95.12,124.50 95.12,124.50 94.50,128.50 94.50,128.50 Z" />
+                    </svg>
+                    <span class="tooltiptext descale" style="left: 6.4em;bottom: 6.9em;">Unknown Hidden Landmass<br>(Only shown on PSMD Nexus model and in cutscenes)</span>
+                </div>
+            </div>
+            
+            <div class="container_icon" id="markers_continent">
+                <div class="labelDiv" style="left: 755px;top: 765px;">
+                    Water Continent
+                </div>
+                <div class="labelDiv" style="left: 1472px;top: 155px;">
+                    Air Continent
+                </div>
+                <div class="labelDiv" style="left: 1475px;top: 1445px;">
+                    Grass Continent
+                </div>
+                <div class="labelDiv" style="left: 335px;top: 145px;">
+                    Mist Continent
+                </div>
+                <div class="labelDiv" style="left: 125px;top: 1425px;">
+                    Sand Continent
+                </div>
+                <div class="labelDiv" style="font-size:30px;left: 805px;top: 1122px;">
+                    Sea of Wonders
+                </div>
+                <div class="labelDiv" style="font-size:30px;left: 705px;top: 95px;">
+                    Mystery Continent
+                </div>
+            </div>
+            
+            <img style="width:100%; pointer-events: all;" src="https://i.imgur.com/sUsQAyy.jpg" alt="Main Map" />
+        </div>
+    </div>
+
+    <div class="buttons" style="position: absolute;bottom: 0; left: 0; margin:8px;">
+        <button class="sbt" onclick="zoomin()">+</button>
+        <button class="sbt" onclick="zoomout()">-</button>
+        <button class="sbt" onclick="map.center()">Reset</button>
+    </div>
+    <script>
+        var linkTimer;
+        var linkTime = 800; //length of time user must touch tag before opening link
+        var link;
+        
+        //Show/goto on touch (open link)
+        function touchVisLong() { 
+            linkTimer = null;
+            if (link) window.location = link; 
+        };
+        
+        //Show/goto on touch (start timer)
+		function touchVisIn(e) 
+        {
+            e.preventDefault();
+            if (!linkTimer) {
+                link = e.target.href;
+                linkTimer = setTimeout(touchVisLong, linkTime);
+            }
+        }
+
+        //Show/goto on touch (cancel timer / toggle visibility)
+        function touchVisOut(e) 
+        {
+            if (linkTimer) {
+                clearTimeout(linkTimer);
+                linkTimer = null;
+                link = null;
+                
+                if (e.target.parentNode.classList.contains("touched"))
+                    e.target.parentNode.classList.remove("touched");
+                else
+                    e.target.parentNode.classList.add("touched");
+            }
+        }
+        
+        //Show/goto on touch (cancel timer)
+        function touchVisMov(e) 
+        {
+            if (linkTimer) {
+                clearTimeout(linkTimer);
+                linkTimer = null;
+                link = null;
+            }
+        }
+        
+        function zoomin() {
+            map.zoomTo(container.clientWidth/2,container.clientHeight/2,1.25)
+        }
+        
+        function zoomout() {
+            map.zoomTo(container.clientWidth/2,container.clientHeight/2,0.75)
+        }
+	
+        //keep the map container the appropriate hight
+        function pageResize() {
+            container.style.height = ""+(window.innerHeight-bar.scrollHeight-8)+"px";
+        }
+		
+        var container = document.getElementById("panzoomContainer");
+        var bar = document.getElementById("buttonBar");
+        
+        pageResize();
+
+        //Start up panzoom map mover
+		if (typeof(panzoom) !== "function")
+		{
+			container.innerHTML="<strong>Unable to load Panzoom script</strong><br>Please disable your ad-blocker to view the map, or completely disable scrips to view the basic version of the map.";
+		}
+        else
+		{
+            var mapObj = document.getElementById('panzoom')
+            map = panzoom(mapObj, {
+                smoothScroll: false,
+                autocenter: true, 
+                minZoom: 0.1,
+                maxZoom: 5
+            });
+            
+            // Snap to the max translate value when panning past the end of the "bounds"
+            map.on('panend', e => {
+                const pos = e.getTransform();
+                const bound = mapObj.getBoundingClientRect();
+                
+                if (bound.width > container.clientWidth) {
+                    if (pos.x > container.clientWidth/2) pos.x = container.clientWidth/2;
+                    else if (pos.x < container.clientWidth/2 - bound.width) pos.x = container.clientWidth/2 - bound.width;
+                    if (pos.y > container.clientHeight/2) pos.y = container.clientHeight/2;
+                    else if (pos.y < container.clientHeight/2 - bound.height) pos.y = container.clientHeight/2 - bound.height;
+                }
+                else {
+                    if (pos.x < -bound.width/4) pos.x = -bound.width/4;
+                    else if (pos.x > container.clientWidth - 3*bound.width/4) pos.x = container.clientWidth - 3*bound.width/4; 
+                    if (pos.y < -bound.height/4) pos.y = -bound.height/4;
+                    else if (pos.y > container.clientHeight - 3*bound.height/4) pos.y = container.clientHeight - 3*bound.height/4; 
+                }
+                
+                e.moveTo(pos.x,pos.y);
+               
+            });
+		}
+
+        {
+            var vis = container.querySelectorAll('.poi');
+            
+            for (var i =0; i<vis.length; i++) {
+                vis[i].addEventListener("touchstart", touchVisIn, false);
+                vis[i].addEventListener("touchend", touchVisOut, false);
+                vis[i].addEventListener("touchmove", touchVisMov, false);
+            }
+        
+        }
+
+    </script>
+</body>
+</html>
