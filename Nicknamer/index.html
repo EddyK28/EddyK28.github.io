@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Eddy's Lab: Nicknamer- PSMD nickname code generator</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" itemprop="description" content="A Nickname AR Code generator for Pokémon Super Mystery Dungeon" />
+    <meta name="keywords" content="">
+    <meta name="author" content="EddyK28">
+    
+    <meta property="og:image" content="/thumb.png">
+    <meta name="twitter:image" content="/thumb.png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" id="style-css"  href="/css/EK28.css" type="text/css" media="all" />
+    
+    <script type="text/javascript" src="/js/MiniModal.js"></script></head>
+
+<body>
+
+    <div id="container_page" class="type_flex">
+		<header>
+            <div id="container_head" class="type_flex">
+                <a href="/" title="Home" class="logo" rel="home">
+                    <img src="/logo.svg" style="height: 64px;margin: 0 1em;" alt="Eddy's Lab- Home" />
+                </a>
+                
+                <ul class="menu_nav">
+                    <li><a class="mbt " href="/">Home</a></li>
+                    <li><a class="mbt " href="/modloader.html">PMD Mod Loader</a></li>
+                    <li><a class="mbt " href="/PMD Map/info.html">PMD World Map</a></li>
+                    <li><a class="mbt " href="/SRC/">Super Rescue-Mail Converter</a></li>
+                    <li><a class="mbt " href="/other.html">Other Stuff</a></li>
+                </ul>
+            </div>
+		</header>
+        
+        <div id="container_content">
+
+    <style>
+        p{margin-bottom:2px;}
+        .hidden{display:none;}
+        
+        .tab_all{
+            border: black;
+            border-style: solid;
+            border-width: 1px;
+            padding: 1px 6px;
+            background-color: white;
+            color:lightgrey;
+            margin: 0 -2px;
+            border-radius: 4px 4px 0px 0px;
+            cursor: pointer;
+			-webkit-touch-callout: none; 	/* iOS Safari */
+			-webkit-user-select: none; 		/* Safari */
+			-khtml-user-select: none; 		/* Konqueror HTML */
+			-moz-user-select: none; 		/* Firefox */
+			-ms-user-select: none; 			/* Internet Explorer/Edge */
+            user-select: none;
+        }
+        
+        .tab_on{
+            border-bottom-color: white !important;
+            color:black !important;
+            cursor: pointer;
+        }
+        
+        .section{
+            margin-top: 2.5px;
+            border: black;
+            border-top: solid 1px;
+        }
+        
+        .vertMargin{
+            margin: 4px auto
+        }
+    </style>
+
+    <center>
+        <h1>Nicknamer</h1>
+        <h3>A PSMD Nickname Code Generator</h3>
+    </center>
+    <hr>
+	<noscript> 
+		<style>
+			#main, #batch, #tab_container{display:none;}
+		</style>
+		<br>
+		<center>This page won't work without Javascript. &nbsp;Please enable Javascript to continue.</center>
+	</noscript>
+    
+    &nbsp;
+    <span id="tab_container" onclick="tabClick(this)">
+        <span id="tab_basic" class="tab_on tab_all"><strong>Basic</strong></span>
+        <span id="tab_batch" class="tab_all"><strong>Batch Entry</strong></span>
+    </span>
+    
+	<div id="main" class="section">
+		<div>
+			<p>Select the Pokémon you want to name:</p>
+			<select id="selectList" size="20" style="width:100%">
+				<option selected="selected">Bulbasaur</option>
+				<option>Ivysaur</option>
+				<option>Venusaur (M)</option>
+				<option>Venusaur (F)</option>
+				<option>Charmander</option>
+				<option>Charmeleon</option>
+				<option>Charizard</option>
+				<option>Squirtle</option>
+				<option>Wartortle</option>
+				<option>Blastoise</option>
+				<option>Caterpie</option>
+				<option>Metapod</option>
+				<option>Butterfree</option>
+				<option>Weedle</option>
+				<option>Kakuna</option>
+				<option>Beedrill</option>
+				<option>Pidgey</option>
+				<option>Pidgeotto</option>
+				<option>Pidgeot</option>
+				<option>Rattata</option>
+				<option>Raticate</option>
+				<option>Spearow</option>
+				<option>Fearow</option>
+				<option>Ekans</option>
+				<option>Arbok</option>
+				<option>Pikachu (M)</option>
+				<option>Pikachu (F)</option>
+				<option>Raichu (M)</option>
+				<option>Raichu (F)</option>
+				<option>Sandshrew</option>
+				<option>Sandslash</option>
+				<option>Nidoran F</option>
+				<option>Nidorina</option>
+				<option>Nidoqueen</option>
+				<option>Nidoran M</option>
+				<option>Nidorino</option>
+				<option>Nidoking</option>
+				<option>Clefairy</option>
+				<option>Clefable</option>
+				<option>Vulpix</option>
+				<option>Ninetails</option>
+				<option>Jigglypuff</option>
+				<option>Wigglytuff</option>
+				<option>Zubat</option>
+				<option>Golbat</option>
+				<option>Oddish</option>
+				<option>Gloom</option>
+				<option>Vileplume</option>
+				<option>Paras</option>
+				<option>Parasect</option>
+				<option>Venonat</option>
+				<option>Venomoth</option>
+				<option>Diglett</option>
+				<option>Dugtrio</option>
+				<option>Meowth</option>
+				<option>Persian</option>
+				<option>Psyduck</option>
+				<option>Golduck</option>
+				<option>Mankey</option>
+				<option>Primeape</option>
+				<option>Growlithe</option>
+				<option>Arcanine</option>
+				<option>Poliwag</option>
+				<option>Poliwhirl</option>
+				<option>Poliwrath</option>
+				<option>Abra</option>
+				<option>Kadabra</option>
+				<option>Alakazam</option>
+				<option>Machop</option>
+				<option>Machoke</option>
+				<option>Machamp</option>
+				<option>Bellsprout</option>
+				<option>Weepinbell</option>
+				<option>Victreebel</option>
+				<option>Tentacool</option>
+				<option>Tentacruel</option>
+				<option>Geodude</option>
+				<option>Graveler</option>
+				<option>Golem</option>
+				<option>Ponyta</option>
+				<option>Rapidash</option>
+				<option>Slowpoke</option>
+				<option>Slowbro</option>
+				<option>Magnemite</option>
+				<option>Magneton</option>
+				<option>Farfetch'd</option>
+				<option>Doduo</option>
+				<option>Dodrio</option>
+				<option>Seel</option>
+				<option>Dewgong</option>
+				<option>Grimer</option>
+				<option>Muk</option>
+				<option>Shellder</option>
+				<option>Cloyster</option>
+				<option>Gastly</option>
+				<option>Haunter</option>
+				<option>Gengar</option>
+				<option>Onix</option>
+				<option>Drowzee</option>
+				<option>Hypno</option>
+				<option>Krabby</option>
+				<option>Kingler</option>
+				<option>Voltorb</option>
+				<option>Electrode</option>
+				<option>Exeggcute</option>
+				<option>Exeggutor</option>
+				<option>Cubone</option>
+				<option>Marowak</option>
+				<option>Hitmonlee</option>
+				<option>Hitmonchan</option>
+				<option>Lickitung</option>
+				<option>Koffing</option>
+				<option>Weezing</option>
+				<option>Rhyhorn</option>
+				<option>Rhydon</option>
+				<option>Chansey</option>
+				<option>Tangela</option>
+				<option>Kangaskhan</option>
+				<option>Horsea</option>
+				<option>Seadra</option>
+				<option>Goldeen</option>
+				<option>Seaking</option>
+				<option>Staryu</option>
+				<option>Starmie</option>
+				<option>Mr. Mime</option>
+				<option>Scyther</option>
+				<option>Jynx</option>
+				<option>Electabuzz</option>
+				<option>Magmar</option>
+				<option>Pinsir</option>
+				<option>Tauros</option>
+				<option>Magikarp</option>
+				<option>Gyarados</option>
+				<option>Lapras</option>
+				<option>Lapras</option>
+				<option>Ditto</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Eevee</option>
+				<option>Vaporeon</option>
+				<option>Jolteon</option>
+				<option>Flareon</option>
+				<option>Porygon</option>
+				<option>Omanyte</option>
+				<option>Omastar</option>
+				<option>Kabuto</option>
+				<option>Kabutops</option>
+				<option>Aerodactyl</option>
+				<option>Snorlax</option>
+				<option>Articuno</option>
+				<option>Zapdos</option>
+				<option>Moltres</option>
+				<option>Dratini</option>
+				<option>Dragonair</option>
+				<option>Dragonite</option>
+				<option>Mewtwo</option>
+				<option>Mew</option>
+				<option>Chikorita</option>
+				<option>Bayleef</option>
+				<option>Meganium</option>
+				<option>Meganium</option>
+				<option>Cyndaquil</option>
+				<option>Quilava</option>
+				<option>Typhlosion</option>
+				<option>Totodile</option>
+				<option>Croconaw</option>
+				<option>Feraligatr</option>
+				<option>Sentret</option>
+				<option>Furret</option>
+				<option>Hoothoot</option>
+				<option>Noctowl</option>
+				<option>Ledyba</option>
+				<option>Ledian</option>
+				<option>Spinarak</option>
+				<option>Ariados</option>
+				<option>Crobat</option>
+				<option>Chinchou</option>
+				<option>Lanturn</option>
+				<option>Pichu</option>
+				<option>Cleffa</option>
+				<option>Igglybuff</option>
+				<option>Togepi</option>
+				<option>Togetic</option>
+				<option>Natu</option>
+				<option>Xatu</option>
+				<option>Mareep</option>
+				<option>Flaaffy</option>
+				<option>Ampharos</option>
+				<option>Bellossom</option>
+				<option>Marill</option>
+				<option>Azumarill</option>
+				<option>Sudowoodo</option>
+				<option>Politoed</option>
+				<option>Hoppip</option>
+				<option>Skiploom</option>
+				<option>Jumpluff</option>
+				<option>Aipom</option>
+				<option>Sunkern</option>
+				<option>Sunflora</option>
+				<option>Yanma</option>
+				<option>Wooper</option>
+				<option>Quagsire</option>
+				<option>Espeon</option>
+				<option>Umbreon</option>
+				<option>Murkrow</option>
+				<option>Slowking</option>
+				<option>Misdreavus</option>
+				<option>Unown (A)</option>
+				<option>Unown (B)</option>
+				<option>Unown (C)</option>
+				<option>Unown (D)</option>
+				<option>Unown (E)</option>
+				<option>Unown (F)</option>
+				<option>Unown (G)</option>
+				<option>Unown (H)</option>
+				<option>Unown (I)</option>
+				<option>Unown (J)</option>
+				<option>Unown (K)</option>
+				<option>Unown (L)</option>
+				<option>Unown (M)</option>
+				<option>Unown (N)</option>
+				<option>Unown (O)</option>
+				<option>Unown (P)</option>
+				<option>Unown (Q)</option>
+				<option>Unown (R)</option>
+				<option>Unown (S)</option>
+				<option>Unown (T)</option>
+				<option>Unown (U)</option>
+				<option>Unown (V)</option>
+				<option>Unown (W)</option>
+				<option>Unown (X)</option>
+				<option>Unown (Y)</option>
+				<option>Unown (Z)</option>
+				<option>Unown (!)</option>
+				<option>Unown (?)</option>
+				<option>Wobbuffet (M)</option>
+				<option>Wobbuffet (F)</option>
+				<option>Girafarig</option>
+				<option>Pineco</option>
+				<option>Forretress</option>
+				<option>Dunsparce</option>
+				<option>Gligar</option>
+				<option>Steelix</option>
+				<option>Snubbull</option>
+				<option>Granbull</option>
+				<option>Qwilfish</option>
+				<option>Scizor</option>
+				<option>Shuckle</option>
+				<option>Heracross</option>
+				<option>Sneasel</option>
+				<option>Teddiursa</option>
+				<option>Ursaring</option>
+				<option>Slugma</option>
+				<option>Magcargo</option>
+				<option>Swinub</option>
+				<option>Piloswine</option>
+				<option>Corsola</option>
+				<option>Remoraid</option>
+				<option>Octillery</option>
+				<option>Delibird</option>
+				<option>Mantine</option>
+				<option>Skarmory</option>
+				<option>Houndour</option>
+				<option>Houndoom</option>
+				<option>Kingdra</option>
+				<option>Phanpy</option>
+				<option>Donphan</option>
+				<option>Porygon2</option>
+				<option>Stantler</option>
+				<option>Smeargle</option>
+				<option>Tyrogue</option>
+				<option>Hitmontop</option>
+				<option>Smoochum</option>
+				<option>Elekid</option>
+				<option>Magby</option>
+				<option>Miltank</option>
+				<option>Blissey</option>
+				<option>Raikou</option>
+				<option>Entei</option>
+				<option>Suicune</option>
+				<option>Larvitar</option>
+				<option>Pupitar</option>
+				<option>Tyranitar</option>
+				<option>Lugia</option>
+				<option>Ho-Oh</option>
+				<option>Celebi</option>
+				<option>Celebi</option>
+				<option>Treecko</option>
+				<option>Grovyle</option>
+				<option>Sceptile</option>
+				<option>Torchic (M)</option>
+				<option>Torchic (F)</option>
+				<option>Combusken (M)</option>
+				<option>Combusken (F)</option>
+				<option>Blaziken (M)</option>
+				<option>Blaziken (F)</option>
+				<option>Mudkip</option>
+				<option>Marshtomp</option>
+				<option>Swampert</option>
+				<option>Poochyena</option>
+				<option>Mightyena</option>
+				<option>Zigzagoon</option>
+				<option>Linoone</option>
+				<option>Wurmple</option>
+				<option>Wurmple</option>
+				<option>Silcoon</option>
+				<option>Beautifly</option>
+				<option>Cascoon</option>
+				<option>Dustox</option>
+				<option>Lotad</option>
+				<option>Lombre</option>
+				<option>Ludicolo</option>
+				<option>Seedot</option>
+				<option>Nuzleaf</option>
+				<option>Shiftry</option>
+				<option>Taillow</option>
+				<option>Swellow</option>
+				<option>Wingull</option>
+				<option>Pelipper</option>
+				<option>Ralts</option>
+				<option>Ralts</option>
+				<option>Kirlia</option>
+				<option>Gardevoir</option>
+				<option>Surskit</option>
+				<option>Masquerain</option>
+				<option>Shroomish</option>
+				<option>Breloom</option>
+				<option>Slakoth</option>
+				<option>Vigoroth</option>
+				<option>Slaking</option>
+				<option>Nincada</option>
+				<option>Ninjask</option>
+				<option>Shedinja</option>
+				<option>Whismur</option>
+				<option>Loudred</option>
+				<option>Exploud</option>
+				<option>Makuhita</option>
+				<option>Hariyama</option>
+				<option>Azurill</option>
+				<option>Nosepass</option>
+				<option>Skitty</option>
+				<option>Delcatty</option>
+				<option>Sableye</option>
+				<option>Mawile</option>
+				<option>Aron</option>
+				<option>Lairon</option>
+				<option>Aggron</option>
+				<option>Meditite</option>
+				<option>Medicham</option>
+				<option>Electrike</option>
+				<option>Manectric</option>
+				<option>Plusle</option>
+				<option>Minun</option>
+				<option>Volbeat</option>
+				<option>Illumise</option>
+				<option>Roselia</option>
+				<option>Gulpin</option>
+				<option>Swalot</option>
+				<option>Carvanha</option>
+				<option>Sharpedo</option>
+				<option>Wailmer</option>
+				<option>Wailord</option>
+				<option>Numel</option>
+				<option>Camerupt</option>
+				<option>Torkoal</option>
+				<option>Spoink</option>
+				<option>Grumpig</option>
+				<option>Spinda</option>
+				<option>Trapinch</option>
+				<option>Vibrava</option>
+				<option>Flygon</option>
+				<option>Cacnea</option>
+				<option>Cacturne</option>
+				<option>Swablu</option>
+				<option>Altaria</option>
+				<option>Zangoose</option>
+				<option>Seviper</option>
+				<option>Lunatone</option>
+				<option>Solrock</option>
+				<option>Barboach</option>
+				<option>Whiscash</option>
+				<option>Corphish</option>
+				<option>Crawdaunt</option>
+				<option>Baltoy</option>
+				<option>Claydol</option>
+				<option>Lileep</option>
+				<option>Cradily</option>
+				<option>Anorith</option>
+				<option>Armaldo</option>
+				<option>Feebas</option>
+				<option>Milotic</option>
+				<option>Castform</option>
+				<option>Kecleon</option>
+				<option>Shuppet</option>
+				<option>Banette</option>
+				<option>Duskull</option>
+				<option>Dusclops</option>
+				<option>Tropius</option>
+				<option>Chimecho</option>
+				<option>Absol</option>
+				<option>Wynaut</option>
+				<option>Snorunt</option>
+				<option>Snorunt</option>
+				<option>Glalie</option>
+				<option>Spheal</option>
+				<option>Sealeo</option>
+				<option>Walrein</option>
+				<option>Clamperl</option>
+				<option>Huntail</option>
+				<option>Gorebyss</option>
+				<option>Relicanth</option>
+				<option>Luvdisc</option>
+				<option>Bagon</option>
+				<option>Shelgon</option>
+				<option>Salamence</option>
+				<option>Beldum</option>
+				<option>Metang</option>
+				<option>Metagross</option>
+				<option>Regirock</option>
+				<option>Regice</option>
+				<option>Registeel</option>
+				<option>Latias</option>
+				<option>Latios</option>
+				<option>Kyogre</option>
+				<option>Groudon</option>
+				<option>Rayquaza</option>
+				<option>Jirachi</option>
+				<option>Deoxys</option>
+				<option>Turtwig</option>
+				<option>Grotle</option>
+				<option>Torterra</option>
+				<option>Chimchar</option>
+				<option>Monferno</option>
+				<option>Infernape</option>
+				<option>Piplup</option>
+				<option>Prinplup</option>
+				<option>Empoleon</option>
+				<option>Starly</option>
+				<option>Staravia</option>
+				<option>Staraptor</option>
+				<option>Bidoof</option>
+				<option>Bibarel</option>
+				<option>Kricketot</option>
+				<option>Kricketune</option>
+				<option>Shinx</option>
+				<option>Luxio</option>
+				<option>Luxray</option>
+				<option>Budew</option>
+				<option>Roserade</option>
+				<option>Cranidos</option>
+				<option>Rampardos</option>
+				<option>Shieldon</option>
+				<option>Bastiodon</option>
+				<option>Burmy</option>
+				<option>Burmy</option>
+				<option>Burmy</option>
+				<option>Burmy</option>
+				<option>Wormadam</option>
+				<option>Wormadam</option>
+				<option>Wormadam</option>
+				<option>Mothim</option>
+				<option>Combee</option>
+				<option>Combee</option>
+				<option>Vespiquen</option>
+				<option>Pachirisu</option>
+				<option>Buizel (M)</option>
+				<option>Buizel (F)</option>
+				<option>Floatzel (M)</option>
+				<option>Floatzel (F)</option>
+				<option>Cherubi</option>
+				<option>Cherrim</option>
+				<option>Shellos</option>
+				<option>Shellos</option>
+				<option>Gastrodon</option>
+				<option>Gastrodon</option>
+				<option>Ambipom</option>
+				<option>Drifloon</option>
+				<option>Drifblim</option>
+				<option>Buneary</option>
+				<option>Lopunny</option>
+				<option>Mismagius</option>
+				<option>Honchkrow</option>
+				<option>Glameow</option>
+				<option>Purugly</option>
+				<option>Chingling</option>
+				<option>Stunky</option>
+				<option>Skuntank</option>
+				<option>Bronzor</option>
+				<option>Bronzong</option>
+				<option>Bonsly</option>
+				<option>Mime Jr</option>
+				<option>Happiny</option>
+				<option>Chatot</option>
+				<option>Spiritomb</option>
+				<option>Gible</option>
+				<option>Gabite</option>
+				<option>Garchomp</option>
+				<option>Munchlax</option>
+				<option>Riolu</option>
+				<option>Lucario</option>
+				<option>Hippopotas (M)</option>
+				<option>Hippopotas (F)</option>
+				<option>Hippowdon (M)</option>
+				<option>Hippowdon (F)</option>
+				<option>Skorupi</option>
+				<option>Drapion</option>
+				<option>Croagunk</option>
+				<option>Toxicroak</option>
+				<option>Carnivine</option>
+				<option>Finneon</option>
+				<option>Lumineon</option>
+				<option>Mantyke</option>
+				<option>Snover (M)</option>
+				<option>Snover (F)</option>
+				<option>Abomasnow</option>
+				<option>Weavile</option>
+				<option>Magnezone</option>
+				<option>Lickilicky</option>
+				<option>Rhyperior</option>
+				<option>Tangrowth</option>
+				<option>Electivire</option>
+				<option>Magmortar</option>
+				<option>Togekiss</option>
+				<option>Yanmega</option>
+				<option>Leafeon</option>
+				<option>Glaceon</option>
+				<option>Gliscor</option>
+				<option>Mamoswine</option>
+				<option>Porygon-Z</option>
+				<option>Gallade</option>
+				<option>Probopass</option>
+				<option>Dusknoir</option>
+				<option>Froslass</option>
+				<option>Rotom (Normal)</option>
+				<option>Rotom (Fire)</option>
+				<option>Rotom (Flying)</option>
+				<option>Rotom (Ice)</option>
+				<option>Rotom (Water)</option>
+				<option>Rotom (Grass)</option>
+				<option>Uxie</option>
+				<option>Mesprit</option>
+				<option>Azelf</option>
+				<option>Dialga</option>
+				<option>Palkia</option>
+				<option>Heatran</option>
+				<option>Regigigas</option>
+				<option>Giratina</option>
+				<option>Cresselia</option>
+				<option>Phione</option>
+				<option>Manaphy</option>
+				<option>Darkrai</option>
+				<option>Shaymin</option>
+				<option>Arceus</option>
+				<option>Victini</option>
+				<option>Snivy</option>
+				<option>Servine</option>
+				<option>Serperior</option>
+				<option>Tepig</option>
+				<option>Pignite</option>
+				<option>Emboar</option>
+				<option>Oshawott</option>
+				<option>Dewott</option>
+				<option>Samurott</option>
+				<option>Patrat</option>
+				<option>Watchog</option>
+				<option>Lillipup</option>
+				<option>Herdier</option>
+				<option>Stoutland</option>
+				<option>Purrloin</option>
+				<option>Liepard</option>
+				<option>Pansage</option>
+				<option>Simisage</option>
+				<option>Pansear</option>
+				<option>Simisear</option>
+				<option>Panpour</option>
+				<option>Simipour</option>
+				<option>Munna</option>
+				<option>Musharna</option>
+				<option>Pidove</option>
+				<option>Pidove</option>
+				<option>Tranquill</option>
+				<option>Unfezant</option>
+				<option>Unfezant</option>
+				<option>Blitzle</option>
+				<option>Zebstrika</option>
+				<option>Roggenrola</option>
+				<option>Boldore</option>
+				<option>Gigalith</option>
+				<option>Woobat</option>
+				<option>Swoobat</option>
+				<option>Drilbur</option>
+				<option>Excadrill</option>
+				<option>Audino</option>
+				<option>Timburr</option>
+				<option>Gurdurr</option>
+				<option>Conkeldurr</option>
+				<option>Tympole</option>
+				<option>Palpitoad</option>
+				<option>Seismitoad</option>
+				<option>Throh</option>
+				<option>Sawk</option>
+				<option>Sewaddle</option>
+				<option>Swadloon</option>
+				<option>Leavanny</option>
+				<option>Venipede</option>
+				<option>Whirlipede</option>
+				<option>Scolipede</option>
+				<option>Cottonee</option>
+				<option>Whimsicott</option>
+				<option>Petilil</option>
+				<option>Lilligant</option>
+				<option>Basculin</option>
+				<option>Basculin</option>
+				<option>Sandile</option>
+				<option>Krokorok</option>
+				<option>Krookodile</option>
+				<option>Darumaka</option>
+				<option>Darmanitan</option>
+				<option>Maractus</option>
+				<option>Dwebble</option>
+				<option>Crustle</option>
+				<option>Scraggy</option>
+				<option>Scrafty</option>
+				<option>Sigilyph</option>
+				<option>Yamask</option>
+				<option>Cofagrigus</option>
+				<option>Tirtouga</option>
+				<option>Carracosta</option>
+				<option>Archen</option>
+				<option>Archeops</option>
+				<option>Trubbish</option>
+				<option>Garbodor</option>
+				<option>Zorua</option>
+				<option>Zoroark</option>
+				<option>Minccino</option>
+				<option>Cinccino</option>
+				<option>Gothita</option>
+				<option>Gothorita</option>
+				<option>Gothitelle</option>
+				<option>Solosis</option>
+				<option>Duosion</option>
+				<option>Reuniclus</option>
+				<option>Ducklett</option>
+				<option>Swanna</option>
+				<option>Vanillite</option>
+				<option>Vanillish</option>
+				<option>Vanilluxe</option>
+				<option>Deerling</option>
+				<option>Sawsbuck</option>
+				<option>Emolga</option>
+				<option>Karrablast</option>
+				<option>Escavalier</option>
+				<option>Foongus</option>
+				<option>Amoonguss</option>
+				<option>Frillish (M)</option>
+				<option>Frillish (F)</option>
+				<option>Jellicent (M)</option>
+				<option>Jellicent (F)</option>
+				<option>Alomomola</option>
+				<option>Joltik</option>
+				<option>Galvantula</option>
+				<option>Ferroseed</option>
+				<option>Ferrothorn</option>
+				<option>Klink</option>
+				<option>Klang</option>
+				<option>Klinklang</option>
+				<option>Tynamo</option>
+				<option>Eelektrik</option>
+				<option>Eelektross</option>
+				<option>Elgyem</option>
+				<option>Beheeyem</option>
+				<option>Litwick</option>
+				<option>Lampent</option>
+				<option>Chandelure</option>
+				<option>Axew</option>
+				<option>Fraxure</option>
+				<option>Haxorus</option>
+				<option>Cubchoo</option>
+				<option>Beartic</option>
+				<option>Cryogonal</option>
+				<option>Shelmet</option>
+				<option>Accelgor</option>
+				<option>Stunfisk</option>
+				<option>Mienfoo</option>
+				<option>Mienshao</option>
+				<option>Druddigon</option>
+				<option>Golett</option>
+				<option>Golurk</option>
+				<option>Pawniard</option>
+				<option>Bisharp</option>
+				<option>Bouffalant</option>
+				<option>Rufflet</option>
+				<option>Braviary</option>
+				<option>Vullaby</option>
+				<option>Mandibuzz</option>
+				<option>Heatmor</option>
+				<option>Durant</option>
+				<option>Deino</option>
+				<option>Zweilous</option>
+				<option>Hydreigon</option>
+				<option>Larvesta</option>
+				<option>Volcarona</option>
+				<option>Cobalion</option>
+				<option>Terrakion</option>
+				<option>Virizion</option>
+				<option>Tornadus</option>
+				<option>Thundurus</option>
+				<option>Reshiram</option>
+				<option>Zekrom</option>
+				<option>Landorus</option>
+				<option>Kyurem</option>
+				<option>Keldeo</option>
+				<option>Meloetta</option>
+				<option>Genesect</option>
+				<option>Genesect</option>
+				<option>Genesect</option>
+				<option>Genesect</option>
+				<option>Genesect</option>
+				<option>Chespin</option>
+				<option>Quilladin</option>
+				<option>Chesnaught</option>
+				<option>Fennekin</option>
+				<option>Braixen</option>
+				<option>Delphox</option>
+				<option>Froakie</option>
+				<option>Frogadier</option>
+				<option>Greninja</option>
+				<option>Bunnelby</option>
+				<option>Diggersby</option>
+				<option>Fletchling</option>
+				<option>Fletchinder</option>
+				<option>Talonflame</option>
+				<option>Scatterbug</option>
+				<option>Scatterbug</option>
+				<option>Spewpa</option>
+				<option>Spewpa</option>
+				<option>Vivillon</option>
+				<option>Vivillon</option>
+				<option>Litleo</option>
+				<option>Litleo</option>
+				<option>Pyroar</option>
+				<option>Pyroar</option>
+				<option>Flabebe</option>
+				<option>Floette</option>
+				<option>Florges</option>
+				<option>Skiddo</option>
+				<option>Gogoat</option>
+				<option>Pancham</option>
+				<option>Pangoro</option>
+				<option>Furfrou</option>
+				<option>Espurr</option>
+				<option>Espurr</option>
+				<option>Meowstic (M)</option>
+				<option>Meowstic (F)</option>
+				<option>Honedge</option>
+				<option>Doublade</option>
+				<option>Aegislash</option>
+				<option>Spritzee</option>
+				<option>Aromatisse</option>
+				<option>Swirlix</option>
+				<option>Slurpuff</option>
+				<option>Inkay</option>
+				<option>Malamar</option>
+				<option>Binacle</option>
+				<option>Barbaracle</option>
+				<option>Skrelp</option>
+				<option>Dragalge</option>
+				<option>Clauncher</option>
+				<option>Clawitzer</option>
+				<option>Helioptile</option>
+				<option>Heliolisk</option>
+				<option>Tyrunt</option>
+				<option>Tyrantrum</option>
+				<option>Amaura</option>
+				<option>Aurorus</option>
+				<option>Sylveon</option>
+				<option>Hawlucha</option>
+				<option>Dedenne</option>
+				<option>Carbink</option>
+				<option>Goomy</option>
+				<option>Sliggoo</option>
+				<option>Goodra</option>
+				<option>Klefki</option>
+				<option>Phantump</option>
+				<option>Trevenant</option>
+				<option>Pumpkaboo</option>
+				<option>Pumpkaboo</option>
+				<option>Pumpkaboo</option>
+				<option>Pumpkaboo</option>
+				<option>Gourgeist</option>
+				<option>Gourgeist</option>
+				<option>Gourgeist</option>
+				<option>Gourgeist</option>
+				<option>Bergmite</option>
+				<option>Avalugg</option>
+				<option>Noibat</option>
+				<option>Noivern</option>
+				<option>Xerneas</option>
+				<option>Yveltal</option>
+				<option>Zygarde</option>
+				<option>Beheeyem*</option>
+				<option>Beheeyem*</option>
+				<option>Poliwrath*</option>
+				<option>Poliwrath*</option>
+				<option>Drilbur*</option>
+				<option>Drilbur*</option>
+				<option>Drilbur*</option>
+				<option>Lanturn*</option>
+				<option>Lanturn*</option>
+				<option>Beedrill*</option>
+				<option>Beedrill*</option>
+				<option>Combee*</option>
+				<option>Combee*</option>
+				<option>Combee*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Void Shadows*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Diancie*</option>
+				<option>Magmar*</option>
+				<option>Magmar*</option>
+				<option>Magmar*</option>
+				<option>Magmar*</option>
+				<option>Litwick*</option>
+				<option>Litwick*</option>
+				<option>Litwick*</option>
+				<option>Tyranitar*</option>
+				<option>Gengar*</option>
+				<option>Gengar*</option>
+				<option>Mewtwo*</option>
+				<option>Rayquaza*</option>
+				<option>Rhydon*</option>
+				<option>Rhydon*</option>
+				<option>Rhydon*</option>
+				<option>Rhydon*</option>
+				<option>Rhydon*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Dark Matter*</option>
+				<option>Pelipper*</option>
+				<option>Hoopa*</option>
+				<option>Kyurem*</option>
+				<option>Kyurem*</option>
+				<option>Kyogre*</option>
+				<option>Groudon*</option>
+				<option>Mewtwo*</option>
+				<option>Giratina*</option>
+				<option>Kecleon*</option>
+				<option>Hawlucha*</option>
+				<option>Klefki*</option>
+				<option>Cofagrigus*</option>
+				<option>Pelipper*</option>
+				<option>Lapras*</option>
+				<option>Meowth*</option>
+				<option>Xerneas*</option>
+				<option>Kangaskhan*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Xerneas*</option>
+				<option>Torchic*</option>
+				<option>Pikachu*</option>
+				<option>Bulbasaur*</option>
+				<option>Bulbasaur*</option>
+				<option>Squirtle*</option>
+				<option>Chikorita*</option>
+				<option>Chimchar*</option>
+		</select>
+		Note: Pokémon marked with * are story Pokémon or misc NPCs.
+		</div>
+		<br>
+		<div>
+			<p>Give it a name:</p>
+			<input id="inputBox" type="text" value="Bobbert" maxlength="12">
+		</div>
+		<br><br>
+		<button onclick="process()">Generate!</button>
+		<br><br>
+		<textarea id="outputBox" style="max-width:100%" rows="6" cols="50" readonly>Hit Generate to get the code</textarea>
+	</div>
+    
+    <div id="batch" class="section hidden">
+        <br>
+        <button class="vertMargin" onclick="loadNone()">Reset</button>
+        <button class="vertMargin" onclick="loadDefault()">Load Default Names</button>
+        <button class="vertMargin" onclick="loadUpload()">Upload Name List</button>
+        <br>
+        <textarea id="inputBoxBatch" style="max-width:100%" rows="10" cols="50">
+Enter list of names here
+Format: ID#-Name
+
+eg. 
+000-Bulbasaur
+161-Mew
+619-Krokorok</textarea>
+        <br><br>
+		<button onclick="processBatch()">Generate!</button>
+		<br><br>
+        <textarea id="outputBoxBatch" style="max-width:100%" rows="10" cols="50" readonly>Hit Generate to get the code</textarea>
+        <br>
+        <button id="outputDownload" disabled="true" onclick="downloadCode()">Download Codes</button>
+    </div>  
+    
+	<!--<br><br><br>&nbsp;
+    <span class="tab_on tab_all"><strong>Sample Name Packs</strong></span>
+    <div class="section">
+        
+    </div>-->
+    
+	<script>
+        function tabClick(elm)
+        {
+            if (elm.children[0].classList.contains("tab_on"))
+            {
+                elm.children[0].classList.remove("tab_on");
+                elm.children[1].classList.add("tab_on");
+                document.getElementById("batch").classList.remove("hidden");
+                document.getElementById("main").classList.add("hidden");
+            }
+            else
+            {
+                elm.children[1].classList.remove("tab_on");
+                elm.children[0].classList.add("tab_on");
+                document.getElementById("main").classList.remove("hidden");
+                document.getElementById("batch").classList.add("hidden");
+            }
+        }
+    
+		function process()
+		{
+			var addr = document.getElementById("selectList").selectedIndex;
+			var str = document.getElementById("inputBox").value;
+				
+			document.getElementById("outputBox").value =  getAddr(addr) + " 00000018\n" + getText(str);
+		}
+        
+        function processBatch()  //strip leading/trailing spaces
+		{
+            var input = document.getElementById("inputBoxBatch").value.split("\n");
+            var outStr = "", idx;
+            var addr, str, overflow = [];
+            
+            for (var i = 0, len = input.length; i < len; i++)   //for each line
+            {
+                //if empty line, skip
+                if (input[i].length == 0) continue;
+                
+                //if < 3 chars
+                
+                idx = input[i].indexOf('-');
+                
+                //check for separator
+                if (idx<0)
+                {
+                    createModalBox("Error at line "+(i+1)+": Missing separator '-'\n  \""+input[i]+'"');
+                    return;
+                }
+                
+                if(idx==0)
+                {
+                    createModalBox("Error at line "+(i+1)+": Missing ID Number\n  \""+input[i]+'"');
+                    return;
+                }
+                
+                //split at idx
+                addr = Number(input[i].substring(0, idx));                
+                str  = input[i].substring(idx+1);
+                
+                /*if (str.length < 1)
+                {
+                    
+                }*/
+                
+                //check for valid number
+                if (!Number.isInteger(addr) || addr < 0 || addr > 897)
+                {
+                    createModalBox("Error at line "+(i+1)+": Invalid ID Number\n  \""+input[i].substring(0, idx)+'"');
+                    return;
+                }
+                
+                if (str.length > 12)
+                {
+                    overflow.push([addr,str]);
+                }
+                
+                outStr = outStr + getAddr(addr) + " 00000018\n" + getText(str)
+            }
+            
+            if (overflow.length > 0)
+            {
+                str=""
+                for (var i = 0, len = overflow.length; i < len; i++)   //for each
+                {
+                    str += overflow[i][0];
+                    str += ", ";
+                }
+                str = str.slice(0, -2);
+                createModalBox("WARNING: Names for the following IDs have been truncated to 12 characters:\n  "+str);
+            }
+            
+            document.getElementById("outputBoxBatch").value = outStr;    //put outStr to output box
+            document.getElementById("outputDownload").disabled = false;
+        }
+        
+        function getAddr(num)
+        {
+          return 'E' + (0x0894C8C8 + (0x150 * num)).toString(16).toUpperCase();
+        }
+        
+        function getText(str)
+        {
+          var strOut = "";
+			
+			for (var i = 0; i < 12; i+=2)
+			{
+				if (i+1 < str.length)
+					strOut += str.charCodeAt(i+1).toString(16).toUpperCase().padStart(4, "0");
+				else
+					strOut += "0000";
+			
+				if (i < str.length)
+					strOut += str.charCodeAt(i).toString(16).toUpperCase().padStart(4, "0");
+				else
+					strOut += "0000";
+					
+				if (!(i%4)) strOut += " ";
+				else strOut += "\n";
+			}
+            return strOut;
+        }
+        
+        function loadDefault(){document.getElementById("inputBoxBatch").value = document.getElementById("data_default").innerText;}
+
+        function loadNone(){document.getElementById("inputBoxBatch").value = "Enter list of names here\nFormat: ID#-Name\n\neg.\n000-Bulbasaur\n161-Mew";}
+        
+        function loadUpload()
+        {
+            if (window.File && window.FileReader)// && window.FileList && window.Blob)
+            {
+                if (document.getElementById("upl01") == null) {
+                    var para = document.createElement('input');
+                    para.type = "file";
+                    para.accept=".txt";
+                    para.id = "upl01";
+                    para.onchange = function (evt) 
+                    {
+                            var reader = new FileReader();
+                            reader.onload = function (evt) 
+                            {
+                                if (evt.target.readyState != 2);
+                                else if (evt.target.error) 
+                                {
+                                    createModalBox('Error while reading file');
+                                } 
+                                else 
+                                {
+                                    var filecontent = evt.target.result;
+                                    if (filecontent == null || filecontent == undefined || filecontent == "") 
+                                    {
+                                        createModalBox("Uploaded file contents empty or invalid.");
+                                    } 
+                                    else 
+                                    {
+                                        document.getElementById("inputBoxBatch").value = filecontent;
+                                    }
+                                }
+                            };
+            
+                            reader.readAsText(evt.target.files[0]);
+                            //document.body.removeChild(document.getElementById("upl01"));
+                    };
+                    //document.body.insertBefore(para, document.getElementById("data_default"));
+                    para.click();
+                } 
+                else 
+                {
+                    document.getElementById("upl01").click();
+                }      
+            
+            } 
+            else 
+            {
+                createModalBox('The File APIs are not fully supported in this browser.');
+            }
+        }
+        
+        function downloadCode()
+        {
+            if (false) {
+                createModalBox("Clipboard contents empty or invalid. Cannot download.");
+            } else {
+                var elem = document.createElement('a');
+                elem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.getElementById("outputBoxBatch").value));
+                elem.setAttribute('download', "NicknameCodes.txt");
+                elem.style.display = 'none';
+                document.body.appendChild(elem);
+                elem.click();
+                document.body.removeChild(elem);
+            }
+        }
+    </script>
+	
+<span id="data_default" style="display:none;">000-Bulbasaur
+001-Ivysaur
+002-Venusaur M
+003-Venusaur F
+004-Charmander
+005-Charmeleon
+006-Charizard
+007-Squirtle
+008-Wartortle
+009-Blastoise
+010-Caterpie
+011-Metapod
+012-Butterfree
+013-Weedle
+014-Kakuna
+015-Beedrill
+016-Pidgey
+017-Pidgeotto
+018-Pidgeot
+019-Rattata
+020-Raticate
+021-Spearow
+022-Fearow
+023-Ekans
+024-Arbok
+025-Pikachu M
+026-Pikachu F
+027-Raichu M
+028-Raichu F
+029-Sandshrew
+030-Sandslash
+031-Nidoran F
+032-Nidorina
+033-Nidoqueen
+034-Nidoran M
+035-Nidorino
+036-Nidoking
+037-Clefairy
+038-Clefable
+039-Vulpix
+040-Ninetails
+041-Jigglypuff
+042-Wigglytuff
+043-Zubat
+044-Golbat
+045-Oddish
+046-Gloom
+047-Vileplume
+048-Paras
+049-Parasect
+050-Venonat
+051-Venomoth
+052-Diglett
+053-Dugtrio
+054-Meowth
+055-Persian
+056-Psyduck
+057-Golduck
+058-Mankey
+059-Primeape
+060-Growlithe
+061-Arcanine
+062-Poliwag
+063-Poliwhirl
+064-Poliwrath
+065-Abra
+066-Kadabra
+067-Alakazam
+068-Machop
+069-Machoke
+070-Machamp
+071-Bellsprout
+072-Weepinbell
+073-Victreebel
+074-Tentacool
+075-Tentacruel
+076-Geodude
+077-Graveler
+078-Golem
+079-Ponyta
+080-Rapidash
+081-Slowpoke
+082-Slowbro
+083-Magnemite
+084-Magneton
+085-Farfetch'd
+086-Doduo
+087-Dodrio
+088-Seel
+089-Dewgong
+090-Grimer
+091-Muk
+092-Shellder
+093-Cloyster
+094-Gastly
+095-Haunter
+096-Gengar
+097-Onix
+098-Drowzee
+099-Hypno
+100-Krabby
+101-Kingler
+102-Voltorb
+103-Electrode
+104-Exeggcute
+105-Exeggutor
+106-Cubone
+107-Marowak
+108-Hitmonlee
+109-Hitmonchan
+110-Lickitung
+111-Koffing
+112-Weezing
+113-Rhyhorn
+114-Rhydon
+115-Chansey
+116-Tangela
+117-Kangaskhan
+118-Horsea
+119-Seadra
+120-Goldeen
+121-Seaking
+122-Staryu
+123-Starmie
+124-Mr. Mime
+125-Scyther
+126-Jynx
+127-Electabuzz
+128-Magmar
+129-Pinsir
+130-Tauros
+131-Magikarp
+132-Gyarados
+133-Lapras
+134-Lapras
+135-Ditto
+136-Eevee
+137-Eevee
+138-Eevee
+139-Eevee
+140-Eevee
+141-Eevee
+142-Eevee
+143-Eevee
+144-Vaporeon
+145-Jolteon
+146-Flareon
+147-Porygon
+148-Omanyte
+149-Omastar
+150-Kabuto
+151-Kabutops
+152-Aerodactyl
+153-Snorlax
+154-Articuno
+155-Zapdos
+156-Moltres
+157-Dratini
+158-Dragonair
+159-Dragonite
+160-Mewtwo
+161-Mew
+162-Chikorita
+163-Bayleef
+164-Meganium
+165-Meganium
+166-Cyndaquil
+167-Quilava
+168-Typhlosion
+169-Totodile
+170-Croconaw
+171-Feraligatr
+172-Sentret
+173-Furret
+174-Hoothoot
+175-Noctowl
+176-Ledyba
+177-Ledian
+178-Spinarak
+179-Ariados
+180-Crobat
+181-Chinchou
+182-Lanturn
+183-Pichu
+184-Cleffa
+185-Igglybuff
+186-Togepi
+187-Togetic
+188-Natu
+189-Xatu
+190-Mareep
+191-Flaaffy
+192-Ampharos
+193-Bellossom
+194-Marill
+195-Azumarill
+196-Sudowoodo
+197-Politoed
+198-Hoppip
+199-Skiploom
+200-Jumpluff
+201-Aipom
+202-Sunkern
+203-Sunflora
+204-Yanma
+205-Wooper
+206-Quagsire
+207-Espeon
+208-Umbreon
+209-Murkrow
+210-Slowking
+211-Misdreavus
+212-Unown (A)
+213-Unown (B)
+214-Unown (C)
+215-Unown (D)
+216-Unown (E)
+217-Unown (F)
+218-Unown (G)
+219-Unown (H)
+220-Unown (I)
+221-Unown (J)
+222-Unown (K)
+223-Unown (L)
+224-Unown (M)
+225-Unown (N)
+226-Unown (O)
+227-Unown (P)
+228-Unown (Q)
+229-Unown (R)
+230-Unown (S)
+231-Unown (T)
+232-Unown (U)
+233-Unown (V)
+234-Unown (W)
+235-Unown (X)
+236-Unown (Y)
+237-Unown (Z)
+238-Unown (!)
+239-Unown (?)
+240-Wobbuffet M
+241-Wobbuffet F
+242-Girafarig
+243-Pineco
+244-Forretress
+245-Dunsparce
+246-Gligar
+247-Steelix
+248-Snubbull
+249-Granbull
+250-Qwilfish
+251-Scizor
+252-Shuckle
+253-Heracross
+254-Sneasel
+255-Teddiursa
+256-Ursaring
+257-Slugma
+258-Magcargo
+259-Swinub
+260-Piloswine
+261-Corsola
+262-Remoraid
+263-Octillery
+264-Delibird
+265-Mantine
+266-Skarmory
+267-Houndour
+268-Houndoom
+269-Kingdra
+270-Phanpy
+271-Donphan
+272-Porygon2
+273-Stantler
+274-Smeargle
+275-Tyrogue
+276-Hitmontop
+277-Smoochum
+278-Elekid
+279-Magby
+280-Miltank
+281-Blissey
+282-Raikou
+283-Entei
+284-Suicune
+285-Larvitar
+286-Pupitar
+287-Tyranitar
+288-Lugia
+289-Ho-Oh
+290-Celebi
+291-Celebi
+292-Treecko
+293-Grovyle
+294-Sceptile
+295-Torchic M
+296-Torchic F
+297-Combusken M
+298-Combusken F
+299-Blaziken M
+300-Blaziken F
+301-Mudkip
+302-Marshtomp
+303-Swampert
+304-Poochyena
+305-Mightyena
+306-Zigzagoon
+307-Linoone
+308-Wurmple
+309-Wurmple
+310-Silcoon
+311-Beautifly
+312-Cascoon
+313-Dustox
+314-Lotad
+315-Lombre
+316-Ludicolo
+317-Seedot
+318-Nuzleaf
+319-Shiftry
+320-Taillow
+321-Swellow
+322-Wingull
+323-Pelipper
+324-Ralts
+325-Ralts
+326-Kirlia
+327-Gardevoir
+328-Surskit
+329-Masquerain
+330-Shroomish
+331-Breloom
+332-Slakoth
+333-Vigoroth
+334-Slaking
+335-Nincada
+336-Ninjask
+337-Shedinja
+338-Whismur
+339-Loudred
+340-Exploud
+341-Makuhita
+342-Hariyama
+343-Azurill
+344-Nosepass
+345-Skitty
+346-Delcatty
+347-Sableye
+348-Mawile
+349-Aron
+350-Lairon
+351-Aggron
+352-Meditite
+353-Medicham
+354-Electrike
+355-Manectric
+356-Plusle
+357-Minun
+358-Volbeat
+359-Illumise
+360-Roselia
+361-Gulpin
+362-Swalot
+363-Carvanha
+364-Sharpedo
+365-Wailmer
+366-Wailord
+367-Numel
+368-Camerupt
+369-Torkoal
+370-Spoink
+371-Grumpig
+372-Spinda
+373-Trapinch
+374-Vibrava
+375-Flygon
+376-Cacnea
+377-Cacturne
+378-Swablu
+379-Altaria
+380-Zangoose
+381-Seviper
+382-Lunatone
+383-Solrock
+384-Barboach
+385-Whiscash
+386-Corphish
+387-Crawdaunt
+388-Baltoy
+389-Claydol
+390-Lileep
+391-Cradily
+392-Anorith
+393-Armaldo
+394-Feebas
+395-Milotic
+396-Castform
+397-Kecleon
+398-Shuppet
+399-Banette
+400-Duskull
+401-Dusclops
+402-Tropius
+403-Chimecho
+404-Absol
+405-Wynaut
+406-Snorunt
+407-Snorunt
+408-Glalie
+409-Spheal
+410-Sealeo
+411-Walrein
+412-Clamperl
+413-Huntail
+414-Gorebyss
+415-Relicanth
+416-Luvdisc
+417-Bagon
+418-Shelgon
+419-Salamence
+420-Beldum
+421-Metang
+422-Metagross
+423-Regirock
+424-Regice
+425-Registeel
+426-Latias
+427-Latios
+428-Kyogre
+429-Groudon
+430-Rayquaza
+431-Jirachi
+432-Deoxys
+433-Turtwig
+434-Grotle
+435-Torterra
+436-Chimchar
+437-Monferno
+438-Infernape
+439-Piplup
+440-Prinplup
+441-Empoleon
+442-Starly
+443-Staravia
+444-Staraptor
+445-Bidoof
+446-Bibarel
+447-Kricketot
+448-Kricketune
+449-Shinx
+450-Luxio
+451-Luxray
+452-Budew
+453-Roserade
+454-Cranidos
+455-Rampardos
+456-Shieldon
+457-Bastiodon
+458-Burmy
+459-Burmy
+460-Burmy
+461-Burmy
+462-Wormadam
+463-Wormadam
+464-Wormadam
+465-Mothim
+466-Combee
+467-Combee
+468-Vespiquen
+469-Pachirisu
+470-Buizel M
+471-Buizel F
+472-Floatzel M
+473-Floatzel F
+474-Cherubi
+475-Cherrim
+476-Shellos
+477-Shellos
+478-Gastrodon
+479-Gastrodon
+480-Ambipom
+481-Drifloon
+482-Drifblim
+483-Buneary
+484-Lopunny
+485-Mismagius
+486-Honchkrow
+487-Glameow
+488-Purugly
+489-Chingling
+490-Stunky
+491-Skuntank
+492-Bronzor
+493-Bronzong
+494-Bonsly
+495-Mime Jr
+496-Happiny
+497-Chatot
+498-Spiritomb
+499-Gible
+500-Gabite
+501-Garchomp
+502-Munchlax
+503-Riolu
+504-Lucario
+505-Hippopotas M
+506-Hippopotas F
+507-Hippowdon M
+508-Hippowdon F
+509-Skorupi
+510-Drapion
+511-Croagunk
+512-Toxicroak
+513-Carnivine
+514-Finneon
+515-Lumineon
+516-Mantyke
+517-Snover M
+518-Snover F
+519-Abomasnow
+520-Weavile
+521-Magnezone
+522-Lickilicky
+523-Rhyperior
+524-Tangrowth
+525-Electivire
+526-Magmortar
+527-Togekiss
+528-Yanmega
+529-Leafeon
+530-Glaceon
+531-Gliscor
+532-Mamoswine
+533-Porygon-Z
+534-Gallade
+535-Probopass
+536-Dusknoir
+537-Froslass
+538-Rotom Normal
+539-Rotom Fire
+540-Rotom Flying
+541-Rotom Ice
+542-Rotom Water
+543-Rotom Grass
+544-Uxie
+545-Mesprit
+546-Azelf
+547-Dialga
+548-Palkia
+549-Heatran
+550-Regigigas
+551-Giratina
+552-Cresselia
+553-Phione
+554-Manaphy
+555-Darkrai
+556-Shaymin
+557-Arceus
+558-Victini
+559-Snivy
+560-Servine
+561-Serperior
+562-Tepig
+563-Pignite
+564-Emboar
+565-Oshawott
+566-Dewott
+567-Samurott
+568-Patrat
+569-Watchog
+570-Lillipup
+571-Herdier
+572-Stoutland
+573-Purrloin
+574-Liepard
+575-Pansage
+576-Simisage
+577-Pansear
+578-Simisear
+579-Panpour
+580-Simipour
+581-Munna
+582-Musharna
+583-Pidove
+584-Pidove
+585-Tranquill
+586-Unfezant
+587-Unfezant
+588-Blitzle
+589-Zebstrika
+590-Roggenrola
+591-Boldore
+592-Gigalith
+593-Woobat
+594-Swoobat
+595-Drilbur
+596-Excadrill
+597-Audino
+598-Timburr
+599-Gurdurr
+600-Conkeldurr
+601-Tympole
+602-Palpitoad
+603-Seismitoad
+604-Throh
+605-Sawk
+606-Sewaddle
+607-Swadloon
+608-Leavanny
+609-Venipede
+610-Whirlipede
+611-Scolipede
+612-Cottonee
+613-Whimsicott
+614-Petilil
+615-Lilligant
+616-Basculin
+617-Basculin
+618-Sandile
+619-Krokorok
+620-Krookodile
+621-Darumaka
+622-Darmanitan
+623-Maractus
+624-Dwebble
+625-Crustle
+626-Scraggy
+627-Scrafty
+628-Sigilyph
+629-Yamask
+630-Cofagrigus
+631-Tirtouga
+632-Carracosta
+633-Archen
+634-Archeops
+635-Trubbish
+636-Garbodor
+637-Zorua
+638-Zoroark
+639-Minccino
+640-Cinccino
+641-Gothita
+642-Gothorita
+643-Gothitelle
+644-Solosis
+645-Duosion
+646-Reuniclus
+647-Ducklett
+648-Swanna
+649-Vanillite
+650-Vanillish
+651-Vanilluxe
+652-Deerling
+653-Sawsbuck
+654-Emolga
+655-Karrablast
+656-Escavalier
+657-Foongus
+658-Amoonguss
+659-Frillish M
+660-Frillish F
+661-Jellicent M
+662-Jellicent F
+663-Alomomola
+664-Joltik
+665-Galvantula
+666-Ferroseed
+667-Ferrothorn
+668-Klink
+669-Klang
+670-Klinklang
+671-Tynamo
+672-Eelektrik
+673-Eelektross
+674-Elgyem
+675-Beheeyem
+676-Litwick
+677-Lampent
+678-Chandelure
+679-Axew
+680-Fraxure
+681-Haxorus
+682-Cubchoo
+683-Beartic
+684-Cryogonal
+685-Shelmet
+686-Accelgor
+687-Stunfisk
+688-Mienfoo
+689-Mienshao
+690-Druddigon
+691-Golett
+692-Golurk
+693-Pawniard
+694-Bisharp
+695-Bouffalant
+696-Rufflet
+697-Braviary
+698-Vullaby
+699-Mandibuzz
+700-Heatmor
+701-Durant
+702-Deino
+703-Zweilous
+704-Hydreigon
+705-Larvesta
+706-Volcarona
+707-Cobalion
+708-Terrakion
+709-Virizion
+710-Tornadus
+711-Thundurus
+712-Reshiram
+713-Zekrom
+714-Landorus
+715-Kyurem
+716-Keldeo
+717-Meloetta
+718-Genesect
+719-Genesect
+720-Genesect
+721-Genesect
+722-Genesect
+723-Chespin
+724-Quilladin
+725-Chesnaught
+726-Fennekin
+727-Braixen
+728-Delphox
+729-Froakie
+730-Frogadier
+731-Greninja
+732-Bunnelby
+733-Diggersby
+734-Fletchling
+735-Fletchinder
+736-Talonflame
+737-Scatterbug
+738-Scatterbug
+739-Spewpa
+740-Spewpa
+741-Vivillon
+742-Vivillon
+743-Litleo
+744-Litleo
+745-Pyroar
+746-Pyroar
+747-Flabebe
+748-Floette
+749-Florges
+750-Skiddo
+751-Gogoat
+752-Pancham
+753-Pangoro
+754-Furfrou
+755-Espurr
+756-Espurr
+757-Meowstic M
+758-Meowstic F
+759-Honedge
+760-Doublade
+761-Aegislash
+762-Spritzee
+763-Aromatisse
+764-Swirlix
+765-Slurpuff
+766-Inkay
+767-Malamar
+768-Binacle
+769-Barbaracle
+770-Skrelp
+771-Dragalge
+772-Clauncher
+773-Clawitzer
+774-Helioptile
+775-Heliolisk
+776-Tyrunt
+777-Tyrantrum
+778-Amaura
+779-Aurorus
+780-Sylveon
+781-Hawlucha
+782-Dedenne
+783-Carbink
+784-Goomy
+785-Sliggoo
+786-Goodra
+787-Klefki
+788-Phantump
+789-Trevenant
+790-Pumpkaboo
+791-Pumpkaboo
+792-Pumpkaboo
+793-Pumpkaboo
+794-Gourgeist
+795-Gourgeist
+796-Gourgeist
+797-Gourgeist
+798-Bergmite
+799-Avalugg
+800-Noibat
+801-Noivern
+802-Xerneas
+803-Yveltal
+804-Zygarde
+805-Beheeyem*
+806-Beheeyem*
+807-Poliwrath*
+808-Poliwrath*
+809-Drilbur*
+810-Drilbur*
+811-Drilbur*
+812-Lanturn*
+813-Lanturn*
+814-Beedrill*
+815-Beedrill*
+816-Combee*
+817-Combee*
+818-Combee*
+819-Void Shadow*
+820-Void Shadow*
+821-Void Shadow*
+822-Void Shadow*
+823-Void Shadow*
+824-Void Shadow*
+825-Void Shadow*
+826-Void Shadow*
+827-Dark Matter*
+828-Dark Matter*
+829-Diancie*
+830-Magmar*
+831-Magmar*
+832-Magmar*
+833-Magmar*
+834-Litwick*
+835-Litwick*
+836-Litwick*
+837-Tyranitar*
+838-Gengar*
+839-Gengar*
+840-Mewtwo*
+841-Rayquaza*
+842-Rhydon*
+843-Rhydon*
+844-Rhydon*
+845-Rhydon*
+846-Rhydon*
+847-Dark Matter*
+848-Dark Matter*
+849-Dark Matter*
+850-Dark Matter*
+851-Dark Matter*
+852-Dark Matter*
+853-Dark Matter*
+854-Dark Matter*
+855-Pelipper*
+856-Hoopa*
+857-Kyurem*
+858-Kyurem*
+859-Kyogre*
+860-Groudon*
+861-Mewtwo*
+862-Giratina*
+863-Kecleon*
+864-Hawlucha*
+865-Klefki*
+866-Cofagrigus*
+867-Pelipper*
+868-Lapras*
+869-Meowth*
+870-Xerneas*
+871-Kangaskhan*
+872-Bulbasaur*
+873-Bulbasaur*
+874-Bulbasaur*
+875-Bulbasaur*
+876-Bulbasaur*
+877-Bulbasaur*
+878-Bulbasaur*
+879-Bulbasaur*
+880-Bulbasaur*
+881-Bulbasaur*
+882-Bulbasaur*
+883-Bulbasaur*
+884-Bulbasaur*
+885-Bulbasaur*
+886-Bulbasaur*
+887-Bulbasaur*
+888-Bulbasaur*
+889-Bulbasaur*
+890-Xerneas*
+891-Torchic*
+892-Pikachu*
+893-Bulbasaur*
+894-Bulbasaur*
+895-Squirtle*
+896-Chikorita*
+897-Chimchar*</span>
+
+		</div><!-- .container_content -->	
+
+
+		<div id="container_copyright">
+            Copyright &copy; 2020 EddyK. All rights reserved.
+		</div>
+        
+	</div><!-- .container_page -->
+
+</body>
+</html>
